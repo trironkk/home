@@ -1,0 +1,21 @@
+" Line Wrapping
+set nowrap
+
+" Line Numbering
+set number
+
+" Whitespace Management
+set expandtab
+set tabstop=4
+
+" Syntax Highlighting
+filetype on
+filetype plugin on
+syntax enable
+
+" Searching
+set incsearch
+set hlsearch
+
+" Cleanup
+set nohidden
