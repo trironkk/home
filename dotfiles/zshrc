@@ -1,6 +1,9 @@
 autoload -U promptinit && promptinit
 autoload -U colors && colors
 
+autoload -U select-word-style
+select-word-style bash
+
 PROMPT_COLOR=cyan
 PS1="%{${fg[cyan]}%}%B%n@%m] %b%{${fg[default]}%}"
 RPROMPT="%{${fg[$PROMPT_COLOR]}%}%B%(7~,.../,)%6~%b%{${fg[default]}%}"
