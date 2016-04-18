@@ -17,6 +17,8 @@ done
 
 # Generally useful utilities that need no explanation.
 sudo yum install -y git
+sudo yum install -y htop
+sudo yum install -y jq
 
 # Install ruby development environment. Seems to be an implicit dependency
 # of command-t vim plugin.
