@@ -27,3 +27,12 @@ sudo yum install -y ruby-devel
 ###########################
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim +PluginInstall +qall
+
+#####################
+# Git Configuration #
+#####################
+
+# Apparently git defaults to using 'vi' instead of 'vim', causing some
+# unpleasant warnings when writing commit messages. Let's use 'vim'
+# instead.
+git config --global core.editor vim
