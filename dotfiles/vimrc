@@ -42,5 +42,8 @@ syntax enable
 set incsearch
 set hlsearch
 
+" Disable auto-indentation.
+set paste
+
 " Cleanup
 set nohidden
