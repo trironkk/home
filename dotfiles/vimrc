@@ -1,3 +1,19 @@
+set nocompatible
+filetype off
+
+" Include Vundle on the runtime path and initialize.
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" Vundle should manage Vundle.
+Plugin 'VundleVim/Vundle.vim'
+
+" Plugins
+Plugin 'wincent/command-t'
+
+call vundle#end()
+filetype plugin indent on
+
 " Line Wrapping
 set nowrap
 

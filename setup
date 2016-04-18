@@ -10,3 +10,20 @@ cd $(readlink -f $(dirname "$0"))
 for dotfile in $(find "dotfiles/" -type f); do
     ln -s $(readlink -f "$dotfile") ~/.$(basename "$dotfile")
 done
+
+#########################
+# Software Installation #
+#########################
+
+# Generally useful utilities that need no explanation.
+sudo yum install -y git
+
+# Install ruby development environment. Seems to be an implicit dependency
+# of command-t vim plugin.
+sudo yum install -y ruby-devel
+
+###########################
+# Vim Plugin Installation #
+###########################
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+vim +PluginInstall +qall
