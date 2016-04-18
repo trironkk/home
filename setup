@@ -1,9 +1,12 @@
 #!/bin/sh
 
+# We should fail if we encounter errors.
 set -e
 
+# We should run this from the working directory of this script.
 cd $(readlink -f $(dirname "$0"))
 
+# Create links of all our dot files.
 for dotfile in $(find "dotfiles/" -type f); do
     ln -s $(readlink -f "$dotfile") ~/.$(basename "$dotfile")
 done
