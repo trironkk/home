@@ -28,14 +28,21 @@ done
 # Software Installation #
 #########################
 
-# Generally useful utilities that need no explanation.
-sudo yum install -y git
-sudo yum install -y htop
-sudo yum install -y jq
+if [ -n "$(command -v yum)" ]; then
+    # General utilities.
+    sudo yum install -y htop
+    sudo yum install -y jq
+    sudo yum install -y tmux
+    sudo yum install -y zsh
+fi
 
-# Install ruby development environment. Seems to be an implicit dependency
-# of command-t vim plugin.
-sudo yum install -y ruby-devel
+if [ -n "$(command -v apt-get)" ]; then
+    # General utilities.
+    sudo apt-get install -y htop
+    sudo apt-get install -y jq
+    sudo apt-get install -y tmux
+    sudo apt-get install -y zsh
+fi
 
 ###########################
 # Vim Plugin Installation #
