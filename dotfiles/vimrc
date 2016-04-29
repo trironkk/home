@@ -14,8 +14,8 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 " Plugins
-Plugin 'wincent/command-t'
 Plugin 'mbbill/undotree'
+Plugin 'ctrlpvim/ctrlp.vim'
 " End Plugins
 
 call vundle#end()
