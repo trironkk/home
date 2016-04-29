@@ -38,3 +38,5 @@ vim +PluginInstall +qall
 # unpleasant warnings when writing commit messages. Let's use 'vim'
 # instead.
 git config --global core.editor vim
+git config --global user.email "trironk@gmail.com"
+git config --global user.name "trironkk"
