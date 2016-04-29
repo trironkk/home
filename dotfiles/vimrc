@@ -1,6 +1,11 @@
 set nocompatible
 filetype off
 
+" If vundle isn't installed, we better install it.
+if !isdirectory(expand("~/.vim/bundle/Vundle.vim/.git"))
+    !git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+endif
+
 " Include Vundle on the runtime path and initialize.
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
