@@ -8,7 +8,20 @@ cd $(readlink -f $(dirname "$0"))
 
 # Create links of all our dot files.
 for dotfile in $(find "dotfiles/" -type f); do
-    ln -s $(readlink -f "$dotfile") ~/.$(basename "$dotfile")
+    # Derive the name of the file.
+    name=.$(basename "$dotfile")
+
+    # If the file already exists...
+    if [ -e ~/$name ]; then
+        if [ -h ~/$name ]; then # If it's a symlink, remove it.
+            rm ~/$name
+        else # Otherwise, back it up.
+            mv ~/$name ~/$name.old
+        fi
+    fi
+
+    # Create a symlink.
+    ln -s $(readlink -f "$dotfile") ~/$name
 done
 
 #########################
