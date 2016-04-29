@@ -11,14 +11,13 @@ for dotfile in $(find "dotfiles/" -type f); do
     # Derive the name of the file.
     name=.$(basename "$dotfile")
 
-    # If the file already exists...
-    if [ -e ~/$name ]; then
-        if [ -h ~/$name ]; then # If it's a symlink, remove it.
-            rm ~/$name
-        else # Otherwise, back it up.
-            mv ~/$name ~/$name.old
-        fi
+    # If the file and is a real file, back it up.
+    if [ -f ~/$name ]; then
+        mv ~/$name ~/$name.old
     fi
+
+    # If the file is still there, it's a symlink. Remove it.
+    rm -f ~/$name
 
     # Create a symlink.
     ln -s $(readlink -f "$dotfile") ~/$name
