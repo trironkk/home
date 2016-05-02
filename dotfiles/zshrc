@@ -10,4 +10,7 @@ PROMPT_COLOR=cyan
 PS1="%{${fg[cyan]}%}%B%n@%m] %b%{${fg[default]}%}"
 RPROMPT="%{${fg[$PROMPT_COLOR]}%}%B%(7~,.../,)%6~%b%{${fg[default]}%}"
 
+eval $(dircolors -b)
+
 alias ll='ls -l'
+alias ls='ls --color=auto'
