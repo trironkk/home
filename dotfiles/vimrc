@@ -50,5 +50,8 @@ set hlsearch
 " Disable auto-indentation.
 set paste
 
+" Coloring.
+colorscheme desert
+
 " Cleanup
 set nohidden
