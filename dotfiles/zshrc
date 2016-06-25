@@ -16,12 +16,15 @@ RPROMPT="%{${fg[$PROMPT_COLOR]}%}%B%(7~,.../,)%6~%b%{${fg[default]}%}"
 export HISTSIZE=1000000
 export SAVEHIST=1000000
 export HISTFILE=~/.history
-setopt share_history
+setopt append_history
 setopt extended_history
 setopt hist_ignore_dups
 
 # Set up colors.
 eval $(dircolors -b)
+
+# Setting up interactive comments.
+setopt INTERACTIVECOMMENTS
 
 alias ll='ls -l'
 alias ls='ls --color=auto'
