@@ -55,3 +55,7 @@ colorscheme desert
 
 " Cleanup
 set nohidden
+
+" Setting smart case sensitivity for searching.
+set ignorecase
+set smartcase
