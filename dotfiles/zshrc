@@ -28,3 +28,4 @@ setopt INTERACTIVECOMMENTS
 
 alias ll='ls -l'
 alias ls='ls --color=auto'
+alias docker="sudo docker"
