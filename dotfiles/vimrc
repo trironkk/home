@@ -16,6 +16,9 @@ Plugin 'VundleVim/Vundle.vim'
 " Plugins
 Plugin 'mbbill/undotree'
 Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'kshenoy/vim-signature'
+Plugin 'SearchAlternatives'
+Plugin 'ingo-library'
 " End Plugins
 
 call vundle#end()
