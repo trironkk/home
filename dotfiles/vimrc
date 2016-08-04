@@ -62,3 +62,7 @@ set nohidden
 " Setting smart case sensitivity for searching.
 set ignorecase
 set smartcase
+
+" Setting toggle for word wrapping and line numbering. Useful for copying
+" from vim buffer to clipboard.
+noremap <F3> :set invnumber invwrap<CR>
