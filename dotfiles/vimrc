@@ -19,6 +19,7 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'kshenoy/vim-signature'
 Plugin 'SearchAlternatives'
 Plugin 'ingo-library'
+Plugin 'qualiabyte/vim-colorstepper'
 " End Plugins
 
 call vundle#end()
