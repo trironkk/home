@@ -1,0 +1,50 @@
+#!/bin/sh
+
+# We should fail if we encounter errors.
+set -e
+
+# Installing chrome...
+wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - 
+sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+sudo apt-get update 
+sudo apt-get install google-chrome-stable
+
+# Configure two finger scroll on thinkpad.
+echo '
+# don't run unless we're being invoked from an xwindows session
+if [[ -n ${DISPLAY} ]]; then
+
+  # set your devices names here
+  pointer1="IBM TrackPoint"
+  pointer2="Lite-On Technology Corp. ThinkPad USB Keyboard with TrackPoint"
+  pointer3="Logitech USB Trackball"
+
+  id1=$(xinput | awk -F= "/$pointer1.*pointer/ {print \$2}" | cut -f1)
+  id2=$(xinput | awk -F= "/$pointer2.*pointer/ {print \$2}" | cut -f1)
+  id3=$(xinput | awk -F= "/$pointer3.*pointer/ {print \$2}" | cut -f1)
+
+  if [[ -n "${id1}" ]]; then
+    xinput --set-button-map "${id1}" 1 2 3 4 5 6 7
+    xinput set-prop "${id1}"  "Evdev Wheel Emulation Axes" 6 7 4 5
+    xinput set-prop "${id1}"  "Evdev Wheel Emulation" 1
+    xinput set-prop "${id1}"  "Evdev Wheel Emulation Button" 2
+    xinput set-prop "${id1}"  "Evdev Middle Button Emulation" 0
+  fi
+
+  if [[ -n "${id2}" ]]; then
+    xinput --set-button-map "${id2}" 1 2 3 4 5 6 7
+    xinput set-prop "${id2}"  "Evdev Wheel Emulation Axes" 6 7 4 5
+    xinput set-prop "${id2}"  "Evdev Wheel Emulation" 1
+    xinput set-prop "${id2}"  "Evdev Wheel Emulation Button" 2
+    xinput set-prop "${id2}"  "Evdev Middle Button Emulation" 0
+  fi
+
+  if [[ -n "${id3}" ]]; then
+    xinput --set-button-map "${id3}" 1 2 3 4 5 6 7 8 9
+    xinput set-prop "${id3}"  "Evdev Wheel Emulation Axes" 6 7 4 5
+    xinput set-prop "${id3}"  "Evdev Wheel Emulation" 1
+    xinput set-prop "${id3}"  "Evdev Wheel Emulation Button" 8
+    xinput set-prop "${id3}"  "Evdev Middle Button Emulation" 1
+  fi
+fi
+' >> ~/.profile
