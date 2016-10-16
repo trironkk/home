@@ -1,0 +1,9 @@
+#!/bin/sh
+
+set -x
+set -e
+
+sudo apt-get install docker.io
+curl -L https://github.com/docker/compose/releases/download/1.8.0/docker-compose-`uname -s`-`uname -m` > /tmp/docker-compose
+sudo chmod 755 /tmp/docker-compose
+sudo mv /tmp/docker-compose /usr/local/bin/docker-compose
