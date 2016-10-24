@@ -69,3 +69,6 @@ set smartcase
 " Setting toggle for word wrapping and line numbering. Useful for copying
 " from vim buffer to clipboard.
 noremap <F3> :set invnumber invwrap<CR>
+
+" Search visually selected text.
+vnoremap // y/<C-R>"<CR>
