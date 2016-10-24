@@ -8,9 +8,9 @@ autoload -U select-word-style
 select-word-style bash
 
 # Minimal color prompt.
-PROMPT_COLOR=cyan
-PS1="%{${fg[cyan]}%}%B%n@%m] %b%{${fg[default]}%}"
-RPROMPT="%{${fg[$PROMPT_COLOR]}%}%B%(7~,.../,)%6~%b%{${fg[default]}%}"
+export PROMPT_COLOR=cyan
+export PS1="%{$fg[$PROMPT_COLOR]%}%n$reset_color@$fg[$PROMPT_COLOR]%m$reset_color:$fg[$PROMPT_COLOR]%~/$reset_color
+$ "
 
 # History configuration.
 export HISTSIZE=1000000
