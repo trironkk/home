@@ -19,7 +19,8 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'kshenoy/vim-signature'
 Plugin 'SearchAlternatives'
 Plugin 'ingo-library'
-Plugin 'qualiabyte/vim-colorstepper'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 " End Plugins
 
 call vundle#end()
@@ -55,6 +56,7 @@ set hlsearch
 set paste
 
 " Coloring.
+let g:airline_theme='distinguished'
 colorscheme desert
 
 " Cleanup
