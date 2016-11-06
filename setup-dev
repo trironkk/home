@@ -3,9 +3,16 @@
 set -x
 set -e
 
-sudo apt-get install docker.io
+sudo apt-get install -y docker.io
+sudo apt-get install -y nodejs npm
+
+# docker-compose
 curl -L https://github.com/docker/compose/releases/download/1.8.0/docker-compose-`uname -s`-`uname -m` > /tmp/docker-compose
 sudo chmod 755 /tmp/docker-compose
 sudo mv /tmp/docker-compose /usr/local/bin/docker-compose
 
-sudo apt-get install nodejs npm
+# minikube
+curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.12.2/minikube-linux-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
+
+# kubernetes
+curl -Lo kubectl http://storage.googleapis.com/kubernetes-release/release/v1.3.0/bin/linux/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
