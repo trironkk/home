@@ -39,7 +39,6 @@ fi
 if [ -n "$(command -v apt-get)" ]; then
     # General utilities.
     sudo apt-get install -y vim
-    sudo apt-get install -y neovim
     sudo apt-get install -y htop
     sudo apt-get install -y jq
     sudo apt-get install -y tmux
@@ -53,13 +52,6 @@ if [ ! -e ~/.vim/bundle/Vundle.vim ]; then
     git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 fi
 vim +PluginInstall +qall
-
-#######################
-# Neovim Installation #
-#######################
-[ ! -d "~/.config" ] || mkdir ~/.config
-[ -e "~/.config/nvim" ] || ln -s ~/.vim ~/.config/nvim
-[ -e "~/.config/nvim.init.vim" ] || ln -s ~/.vimrc ~/.config/nvim/init.vim
 
 #####################
 # Git Configuration #

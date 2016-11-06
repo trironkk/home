@@ -28,5 +28,4 @@ setopt INTERACTIVECOMMENTS
 
 alias ll='ls -l'
 alias ls='ls --color=auto'
-alias vim='nvim'
 alias docker="sudo docker"
