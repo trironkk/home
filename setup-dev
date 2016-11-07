@@ -15,11 +15,6 @@ curl -# -Lo minikube https://storage.googleapis.com/minikube/releases/v0.12.2/mi
 chmod +x minikube
 sudo mv minikube /usr/local/bin/
 
-# kubernetes
-curl -# -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/v1.3.0/bin/linux/amd64/kubectl
-chmod +x kubectl
-sudo mv kubectl /usr/local/bin/
-
 # virtualbox
 echo 'deb http://httpredir.debian.org/debian/ jessie main contrib' | sudo tee -a /etc/apt/sources.list
 sudo apt-get update
@@ -39,3 +34,9 @@ rm -rf ~/google-cloud-sdk
 ./install_google_cloud_sdk.bash --disable-prompts
 rm install_google_cloud_sdk.bash
 sudo apt-get remove google-cloud-sdk
+
+# gcloud components
+gcloud components install alpha
+gcloud components install beta
+gcloud components install docker-credential-gcr
+gcloud components install kubectl
