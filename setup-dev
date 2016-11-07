@@ -26,9 +26,11 @@ sudo apt-get update
 sudo apt-get install -y virtualbox
 
 # set up an rsa identity
-ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa -C "trironk@gmail.com"
-eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/id_rsa
+if [[ ! -f '~/.ssh/id_rsa' ]]; then
+  ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa -C "trironk@gmail.com"
+  eval "$(ssh-agent -s)"
+  ssh-add ~/.ssh/id_rsa
+fi
 
 # install gcloud
 curl -# -Lo install_google_cloud_sdk.bash 'https://dl.google.com/dl/cloudsdk/channels/rapid/install_google_cloud_sdk.bash'
