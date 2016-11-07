@@ -20,6 +20,11 @@ curl --silent -Lo kubectl https://storage.googleapis.com/kubernetes-release/rele
 chmod +x kubectl
 sudo mv kubectl /usr/local/bin/
 
+# virtualbox
+echo 'deb http://httpredir.debian.org/debian/ jessie main contrib' | sudo tee -a /etc/apt/sources.list
+sudo apt-get update
+sudo apt-get install virtualbox
+
 # set up an rsa identity
 ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa -C "trironk@gmail.com"
 eval "$(ssh-agent -s)"
