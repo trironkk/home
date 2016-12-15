@@ -19,6 +19,7 @@ export HISTFILE=~/.history
 setopt append_history
 setopt extended_history
 setopt hist_ignore_dups
+zshaddhistory() { print -sr "${(z)1%%$'\n'}"; return 1 }
 
 # Set up colors.
 eval $(dircolors -b)
