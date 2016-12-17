@@ -1,6 +1,8 @@
 #!/bin/sh
 
-# This fixes Thinkpad w520, but doesn't work for Thinkpad t460.
+# This fixes Thinkpad w520.
+# Thinkpad t460 can be fixed (on ubuntu 16.04) in the following menu:
+# System Setings -> Mouse and Touchpad -> Touchpad -> Scrolling
 
 # don't run unless we're being invoked from an xwindows session
 if [[ -n ${DISPLAY} ]]; then
