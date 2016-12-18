@@ -1,62 +1,58 @@
-#!/bin/sh
+#!/bin/bash
 
 # We should fail if we encounter errors.
 set -e
+set -x
+
+cd "$HOME"
+github_directory="$HOME/workspace/github.com"
+
+# Install utilities.
+if [ -n "$(command -v yum)" ]; then
+    sudo yum install -y git vim htop jq tmux zsh
+elif [ -n "$(command -v apt-get)" ]; then
+    sudo apt-get install -y git vim htop jq tmux zsh
+fi
+
+# Pull down GitHub projects.
+projects=("robbyrussell/oh-my-zsh" "trironkk/Home" "VundleVim/Vundle.vim")
+for project in "${projects[@]}"
+do
+    project_directory="$github_directory/$project"
+    mkdir -p "$project_directory"
+    git clone "https://github.com/$project" "$project_directory"
+done
+
+# Symlink projects into their default locations.
+ln -s ~/.vim/bundle/Vundle.vim "$github_directory/VundleVim/Vundle.vim"
+ln -s ~/.oh-my-zsh "$github_directory/robbyrussell/oh-my-zsh"
 
 # We should run this from the working directory of this script.
 cd $(readlink -f $(dirname "$0"))
 
 # Create links of all our dot files.
-for dotfile in $(find "dotfiles/" -type f); do
+dotfiles=$(find "$github_directory/trironkk/Home/dotfiles/" -type f)
+for dotfile in $dotfiles
+do
     # Derive the name of the file.
     name=.$(basename "$dotfile")
 
     # If the file and is a real file, back it up.
-    if [ -f ~/$name ]; then
-        mv ~/$name ~/$name.old
+    if [ -f "$HOME/$name" ]; then
+        mv "$HOME/$name" "$HOME/$name.old"
     fi
 
     # If the file is still there, it's a symlink. Remove it.
-    rm -f ~/$name
+    rm -f "$HOME/$name"
 
     # Create a symlink.
-    ln -s $(readlink -f "$dotfile") ~/$name
+    ln -s "$(readlink -f "$dotfile")" "$HOME/$name"
 done
 
-#########################
-# Software Installation #
-#########################
-
-if [ -n "$(command -v yum)" ]; then
-    # General utilities.
-    sudo yum install -y vim
-    sudo yum install -y htop
-    sudo yum install -y jq
-    sudo yum install -y tmux
-    sudo yum install -y zsh
-fi
-
-if [ -n "$(command -v apt-get)" ]; then
-    # General utilities.
-    sudo apt-get install -y vim
-    sudo apt-get install -y htop
-    sudo apt-get install -y jq
-    sudo apt-get install -y tmux
-    sudo apt-get install -y zsh
-fi
-
-###########################
-# Vim Plugin Installation #
-###########################
-if [ ! -e ~/.vim/bundle/Vundle.vim ]; then
-    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-fi
+# Install vim plugins.
 vim +PluginInstall +qall
 
-#####################
-# Git Configuration #
-#####################
-
+# Set up git.
 # Apparently git defaults to using 'vi' instead of 'vim', causing some
 # unpleasant warnings when writing commit messages. Let's use 'vim'
 # instead.
