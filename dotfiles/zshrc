@@ -1,16 +1,17 @@
-autoload -U +X bashcompinit && bashcompinit
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-autoload -U promptinit && promptinit
-autoload -U colors && colors
+export ZSH="$HOME/workspace/github.com/robbyrussell/oh-my-zsh/"
 
-# Word styles.
-autoload -U select-word-style
-select-word-style bash
+ZSH_THEME="simple"
 
-# Minimal color prompt.
+plugins=(git)
+
+source $ZSH/oh-my-zsh.sh
+
 export PROMPT_COLOR=cyan
-export PS1="%{$fg[$PROMPT_COLOR]%}%n$reset_color@$fg[$PROMPT_COLOR]%m$reset_color:$fg[$PROMPT_COLOR]%~/$reset_color
-$ "
+export PS1='%{$fg[$PROMPT_COLOR]%}%n$reset_color@$fg[$PROMPT_COLOR]%m$reset_color:$fg[$PROMPT_COLOR]%~/$reset_color $(git_prompt_info)
+$ '
 
 # History configuration.
 export HISTSIZE=1000000
@@ -20,13 +21,3 @@ setopt append_history
 setopt extended_history
 setopt hist_ignore_dups
 zshaddhistory() { print -sr "${(z)1%%$'\n'}"; return 1 }
-
-# Set up colors.
-eval $(dircolors -b)
-
-# Setting up interactive comments.
-setopt INTERACTIVECOMMENTS
-
-alias ll='ls -l'
-alias ls='ls --color=auto'
-alias docker="sudo docker"
