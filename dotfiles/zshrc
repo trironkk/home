@@ -3,21 +3,20 @@
 
 export ZSH="$HOME/workspace/github.com/robbyrussell/oh-my-zsh/"
 
+# History configuration.
+export HISTSIZE=1000000
+export SAVEHIST=1000000
+setopt append_history
+setopt extended_history
+setopt hist_ignore_dups
+zshaddhistory() { print -sr "${(z)1%%$'\n'}"; return 1 }
+HIST_STAMPS="mm/dd/yyyy" # Configures oh-my-zsh
+
 ZSH_THEME="simple"
-
 plugins=(git)
-
 source $ZSH/oh-my-zsh.sh
 
 export PROMPT_COLOR=cyan
 export PS1='%{$fg[$PROMPT_COLOR]%}%n$reset_color@$fg[$PROMPT_COLOR]%m$reset_color:$fg[$PROMPT_COLOR]%~/$reset_color $(git_prompt_info)
 $ '
 
-# History configuration.
-export HISTSIZE=1000000
-export SAVEHIST=1000000
-export HISTFILE=~/.history
-setopt append_history
-setopt extended_history
-setopt hist_ignore_dups
-zshaddhistory() { print -sr "${(z)1%%$'\n'}"; return 1 }
