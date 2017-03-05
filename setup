@@ -15,7 +15,7 @@ elif [ -n "$(command -v apt-get)" ]; then
 fi
 
 # Pull down GitHub projects.
-projects=("robbyrussell/oh-my-zsh" "trironkk/Home" "VundleVim/Vundle.vim")
+projects=( "robbyrussell/oh-my-zsh" "trironkk/Home" "VundleVim/Vundle.vim" )
 for project in "${projects[@]}"
 do
     project_directory="$github_directory/$project"
