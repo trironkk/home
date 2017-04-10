@@ -11,7 +11,7 @@ github_directory="$HOME/workspace/github.com"
 if [ -n "$(command -v yum)" ]; then
     sudo yum install -y git vim htop jq tmux zsh
 elif [ -n "$(command -v apt-get)" ]; then
-    sudo apt-get install -y git vim htop jq tmux zsh
+    sudo apt-get install -y git vim htop jq tmux zsh silversearcher-ag
 fi
 
 # Pull down GitHub projects.
