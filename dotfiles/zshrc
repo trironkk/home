@@ -16,7 +16,19 @@ ZSH_THEME="simple"
 plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
-export PROMPT_COLOR=cyan
-export PS1='%{$fg[$PROMPT_COLOR]%}%n$reset_color@$fg[$PROMPT_COLOR]%m$reset_color:$fg[$PROMPT_COLOR]%~/$reset_color $(git_prompt_info)
-$ '
+# Prompt setup.
+export FG_PROMPT_COLOR=black
+export BG_PROMPT_COLOR=green
+export PS1="%{$fg[$FG_PROMPT_COLOR]$bg[$BG_PROMPT_COLOR]%}%n$reset_color@$fg[$FG_PROMPT_COLOR]$bg[$BG_PROMPT_COLOR]%m$reset_color:$fg[$FG_PROMPT_COLOR]$bg[$BG_PROMPT_COLOR]%~/$reset_color
+$ "
 
+# Colorized man prompts
+man() {
+    LESS_TERMCAP_md=$'\e[01;31m' \
+    LESS_TERMCAP_me=$'\e[0m' \
+    LESS_TERMCAP_se=$'\e[0m' \
+    LESS_TERMCAP_so=$'\e[01;44;33m' \
+    LESS_TERMCAP_ue=$'\e[0m' \
+    LESS_TERMCAP_us=$'\e[01;32m' \
+    command man "$@"
+}
