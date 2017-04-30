@@ -19,8 +19,8 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'kshenoy/vim-signature'
 Plugin 'SearchAlternatives'
 Plugin 'ingo-library'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
+Plugin 'terryma/vim-expand-region'
+Plugin 'terryma/vim-smooth-scroll'
 " End Plugins
 
 call vundle#end()
@@ -72,3 +72,7 @@ noremap <F3> :set invnumber invwrap<CR>
 
 " Search visually selected text.
 vnoremap // y/<C-R>"<CR>
+
+" Set up smooth scrolling.
+noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 2, 5)<CR>
+noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 2, 5)<CR>
