@@ -1,37 +1,14 @@
 set nocompatible
 filetype off
 
-" If vundle isn't installed, we better install it.
-if !isdirectory(expand("~/.vim/bundle/Vundle.vim/.git"))
-    !git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-endif
+call plug#begin('~/.vim/plugged')
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'kshenoy/vim-signature'
+Plug 'tpope/vim-abolish'
+call plug#end()
 
-" Include Vundle on the runtime path and initialize.
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-" Vundle should manage Vundle.
-Plugin 'VundleVim/Vundle.vim'
-
-" Plugins
-Plugin 'mbbill/undotree'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'kshenoy/vim-signature'
-Plugin 'SearchAlternatives'
-Plugin 'ingo-library'
-Plugin 'terryma/vim-expand-region'
-Plugin 'terryma/vim-smooth-scroll'
-" End Plugins
-
-call vundle#end()
 filetype plugin indent on
-
-" Persistent undo
-set undofile
-set undodir=~/.vim/undo
-
-set undolevels=1000
-set undoreload=10000
 
 " Line Wrapping
 set nowrap
@@ -42,11 +19,6 @@ set number
 " Whitespace Management
 set expandtab
 set tabstop=4
-
-" Syntax Highlighting
-filetype on
-filetype plugin on
-syntax enable
 
 " Searching
 set incsearch
@@ -59,20 +31,9 @@ set paste
 let g:airline_theme='distinguished'
 colorscheme desert
 
-" Cleanup
-set nohidden
-
 " Setting smart case sensitivity for searching.
-set ignorecase
 set smartcase
 
 " Setting toggle for word wrapping and line numbering. Useful for copying
 " from vim buffer to clipboard.
 noremap <F3> :set invnumber invwrap<CR>
-
-" Search visually selected text.
-vnoremap // y/<C-R>"<CR>
-
-" Set up smooth scrolling.
-noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 2, 5)<CR>
-noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 2, 5)<CR>

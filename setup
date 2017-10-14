@@ -15,7 +15,7 @@ elif [ -n "$(command -v apt-get)" ]; then
 fi
 
 # Pull down GitHub projects.
-projects=( "robbyrussell/oh-my-zsh" "trironkk/Home" "VundleVim/Vundle.vim" )
+projects=( "robbyrussell/oh-my-zsh" "trironkk/Home" )
 for project in "${projects[@]}"
 do
     project_directory="$github_directory/$project"
@@ -24,8 +24,11 @@ do
 done
 
 # Symlink projects into their default locations.
-ln -s ~/.vim/bundle/Vundle.vim "$github_directory/VundleVim/Vundle.vim"
 ln -s ~/.oh-my-zsh "$github_directory/robbyrussell/oh-my-zsh"
+
+# Install vim-plug.
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 # We should run this from the working directory of this script.
 cd $(readlink -f $(dirname "$0"))
