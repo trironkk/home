@@ -41,7 +41,7 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 "$github_directory/robbyrussell/oh-my-zsh/tools/install.sh"
 
 # Install fzf.
-"$github_directory/junegunn/fzf/install --all"
+"$github_directory/junegunn/fzf/install" --all
 
 # We should run this from the working directory of this script.
 cd $(readlink -f $(dirname "$0"))
@@ -66,7 +66,7 @@ do
 done
 
 # Install vim plugins.
-vim +PluginInstall +qall
+vim +PlugInstall +qall
 
 # Set up git.
 # Apparently git defaults to using 'vi' instead of 'vim', causing some
