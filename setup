@@ -15,20 +15,33 @@ elif [ -n "$(command -v apt-get)" ]; then
 fi
 
 # Pull down GitHub projects.
-projects=( "robbyrussell/oh-my-zsh" "trironkk/Home" )
+projects=( "robbyrussell/oh-my-zsh" "trironkk/Home" "junegunn/fzf")
 for project in "${projects[@]}"
 do
     project_directory="$github_directory/$project"
     mkdir -p "$project_directory"
-    git clone "https://github.com/$project" "$project_directory"
+    if [ ! -e "$project_directory/.git/" ]; then
+         git clone "https://github.com/$project" "$project_directory"
+    fi
 done
 
 # Symlink projects into their default locations.
-ln -s ~/.oh-my-zsh "$github_directory/robbyrussell/oh-my-zsh"
+if [ ! -e ".oh-my-zsh" ]; then
+    ln -s "$github_directory/robbyrussell/oh-my-zsh" ".oh-my-zsh"
+fi
+if [ ! -e ".fzf" ]; then
+    ln -s "$github_directory/junegunn/fzf" ".fzf"
+fi
 
 # Install vim-plug.
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+# Install oh-my-zsh.
+"$github_directory/robbyrussell/oh-my-zsh/tools/install.sh"
+
+# Install fzf.
+"$github_directory/junegunn/fzf/install --all"
 
 # We should run this from the working directory of this script.
 cd $(readlink -f $(dirname "$0"))
