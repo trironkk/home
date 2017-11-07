@@ -16,6 +16,9 @@ ZSH_THEME="simple"
 plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
+bindkey '\eb' vi-backward-word
+bindkey '\ef' vi-forward-word
+
 # Prompt setup.
 export FG_PROMPT_COLOR=black
 export BG_PROMPT_COLOR=green
