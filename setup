@@ -9,13 +9,13 @@ github_directory="$HOME/workspace/github.com"
 
 # Install utilities.
 if [ -n "$(command -v yum)" ]; then
-    sudo yum install -y git vim htop jq tmux zsh
+    sudo yum install -y git vim htop jq tmux zsh pkgconfig automake gcc zlib-devel pcre-devel xz-devel
 elif [ -n "$(command -v apt-get)" ]; then
-    sudo apt-get install -y git vim htop jq tmux zsh silversearcher-ag
+    sudo apt-get install -y git vim htop jq tmux zsh automake pkg-config libpcre3-dev zlib1g-dev liblzma-dev
 fi
 
 # Pull down GitHub projects.
-projects=( "robbyrussell/oh-my-zsh" "trironkk/Home" "junegunn/fzf")
+projects=( "robbyrussell/oh-my-zsh" "trironkk/Home" "junegunn/fzf" "ggreer/the_silver_searcher" )
 for project in "${projects[@]}"
 do
     project_directory="$github_directory/$project"
@@ -42,6 +42,11 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 
 # Install fzf.
 "$github_directory/junegunn/fzf/install" --all
+
+# Install ag.
+cd "$github_directory/ggreer/the_silver_searcher/"
+./build.sh
+sudo make install
 
 # We should run this from the working directory of this script.
 cd $(readlink -f $(dirname "$0"))
