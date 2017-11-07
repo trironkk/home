@@ -41,7 +41,7 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 "$github_directory/robbyrussell/oh-my-zsh/tools/install.sh"
 
 # Install fzf.
-"$github_directory/junegunn/fzf/install" --all
+"$github_directory/junegunn/fzf/install" --bin
 
 # Install ag.
 cd "$github_directory/ggreer/the_silver_searcher/"
