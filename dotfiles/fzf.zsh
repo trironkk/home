@@ -15,3 +15,4 @@ source "/home/trironkk/workspace/github.com/junegunn/fzf/shell/key-bindings.zsh"
 # Enable fzf-tmux integration.
 export FZF_TMUX=1
 export FZF_DEFAULT_COMMAND='ag -g ""'
+export FZF_CTRL_T_COMMAND='ag -g ""'
