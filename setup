@@ -9,9 +9,9 @@ github_directory="$HOME/workspace/github.com"
 
 # Install utilities.
 if [ -n "$(command -v yum)" ]; then
-    sudo yum install -y git vim htop jq tmux zsh pkgconfig automake gcc zlib-devel pcre-devel xz-devel
+    sudo yum install -y git vim htop jq tmux zsh pkgconfig automake gcc zlib-devel pcre-devel xz-devel gcc make
 elif [ -n "$(command -v apt-get)" ]; then
-    sudo apt-get install -y git vim htop jq tmux zsh automake pkg-config libpcre3-dev zlib1g-dev liblzma-dev
+    sudo apt-get install -y git vim htop jq tmux zsh automake pkg-config libpcre3-dev zlib1g-dev liblzma-dev gcc make
 fi
 
 # Pull down GitHub projects.
