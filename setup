@@ -15,7 +15,7 @@ mkdir -p "$local_directory"
 if [ -n "$(command -v yum)" ]; then
     sudo yum install -y git vim htop jq tmux zsh pkgconfig automake gcc zlib-devel pcre-devel xz-devel gcc make
 elif [ -n "$(command -v apt-get)" ]; then
-    sudo apt-get install -y git vim htop jq tmux zsh automake pkg-config libpcre3-dev zlib1g-dev liblzma-dev gcc make
+    sudo apt-get install -y git vim htop jq tmux zsh automake pkg-config libpcre3-dev zlib1g-dev liblzma-dev gcc make libltdl7
 fi
 
 # Pull down GitHub projects.
@@ -58,6 +58,12 @@ go_release="go1.9.2.linux-amd64.tar.gz"
 curl "https://dl.google.com/go/$go_release" > "/tmp/$go_release"
 tar -xvf "/tmp/$go_release" -C "$local_directory"
 rm "/tmp/$go_release"
+
+# Install docker.
+docker_release="docker-ce_17.12.0~ce-0~debian_amd64.deb"
+curl "https://download.docker.com/linux/debian/dists/stretch/pool/stable/amd64/$docker_release" > "/tmp/$docker_release"
+sudo dpkg -i "/tmp/$docker_release"
+rm "/tmp/$docker_release"
 
 # We should run this from the working directory of this script.
 cd $(readlink -f $(dirname "$0"))
