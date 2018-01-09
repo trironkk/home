@@ -6,6 +6,10 @@ set -x
 
 cd "$HOME"
 github_directory="$HOME/workspace/github.com"
+local_directory="$HOME/local"
+
+mkdir -p "$github_directory"
+mkdir -p "$local_directory"
 
 # Install utilities.
 if [ -n "$(command -v yum)" ]; then
@@ -47,6 +51,13 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 cd "$github_directory/ggreer/the_silver_searcher/"
 ./build.sh
 sudo make install
+
+# Install golang.
+rm -rf "$local_directory/go"
+go_release="go1.9.2.linux-amd64.tar.gz"
+curl "https://dl.google.com/go/$go_release" > "/tmp/$go_release"
+tar -xvf "/tmp/$go_release" -C "$local_directory"
+rm "/tmp/$go_release"
 
 # We should run this from the working directory of this script.
 cd $(readlink -f $(dirname "$0"))

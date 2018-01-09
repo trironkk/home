@@ -2,6 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 export ZSH="$HOME/workspace/github.com/robbyrussell/oh-my-zsh/"
+export PATH="$PATH:$HOME/local/go/bin"
 
 # History configuration.
 export HISTSIZE=1000000
