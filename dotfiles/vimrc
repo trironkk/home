@@ -18,7 +18,7 @@ set number
 
 " Whitespace Management
 set expandtab
-set tabstop=4
+set tabstop=2
 
 " Searching
 set incsearch
@@ -37,3 +37,6 @@ set smartcase
 " Setting toggle for word wrapping and line numbering. Useful for copying
 " from vim buffer to clipboard.
 noremap <F3> :set invnumber invwrap<CR>
+
+" FileType specific configurations.
+autocmd FileType python setlocal softtabstop=2 tabstop=2 expandtab
