@@ -2,18 +2,18 @@ set nocompatible
 filetype off
 
 call plug#begin('~/.vim/plugged')
+Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'kshenoy/vim-signature'
+Plug 'terryma/vim-expand-region'
 Plug 'tpope/vim-abolish'
+Plug 'vimwiki/vimwiki'
 call plug#end()
 
 filetype plugin indent on
 
-" Line Wrapping
 set nowrap
-
-" Line Numbering
 set number
 
 " Whitespace Management
@@ -28,15 +28,36 @@ set hlsearch
 set paste
 
 " Coloring.
-let g:airline_theme='distinguished'
 colorscheme desert
 
-" Setting smart case sensitivity for searching.
+" Smart case sensitivity for searching.
 set smartcase
 
-" Setting toggle for word wrapping and line numbering. Useful for copying
-" from vim buffer to clipboard.
+" Toggle for word wrapping and line numbering. Useful for copying from
+" vim buffer to clipboard.
 noremap <F3> :set invnumber invwrap<CR>
 
 " FileType specific configurations.
 autocmd FileType python setlocal softtabstop=2 tabstop=2 expandtab
+
+" Status bar configuration
+set laststatus=2
+if !has('gui_running')
+  set t_Co=256
+endif
+
+set noshowmode
+let g:lightline = {
+      \ 'active': {
+      \   'left': [ [ 'readonly', 'mode', 'modified' ],
+      \             [ 'relativepath' ] ],
+      \   'right': [ [ 'lineinfo' ],
+      \              [ 'percent' ] ]
+      \ },
+      \ 'component': {
+      \   'charvaluehex': '0x%B'
+      \ },
+      \ }
+
+" FZF configuration
+nnoremap <silent> <C-p> :FZF<CR>
