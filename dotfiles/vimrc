@@ -2,62 +2,75 @@ set nocompatible
 filetype off
 
 call plug#begin('~/.vim/plugged')
-Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'kshenoy/vim-signature'
+Plug 'morhetz/gruvbox'
 Plug 'terryma/vim-expand-region'
 Plug 'tpope/vim-abolish'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'vimwiki/vimwiki'
 call plug#end()
 
 filetype plugin indent on
 
-set nowrap
-set number
+" Persistent undo
+set undofile
+set undodir=~/.vim/undo
+set undolevels=1000
+set undoreload=10000
+
+" Line wrapping and numbering
+set nowrap number
 
 " Whitespace Management
-set expandtab
-set tabstop=2
+set expandtab tabstop=4 paste
+
+" Coloring
+colorscheme gruvbox
+set background=dark
+let g:airline_theme = 'gruvbox'
+
+" Syntax Highlighting
+filetype on
+filetype plugin on
+syntax enable
 
 " Searching
-set incsearch
-set hlsearch
+set incsearch hlsearch smartcase
+highlight Search guibg=grey guifg=white
+highlight Search cterm=NONE ctermfg=white ctermbg=darkgrey
 
-" Disable auto-indentation.
-set paste
-
-" Coloring.
-colorscheme desert
-
-" Smart case sensitivity for searching.
-set smartcase
-
-" Toggle for word wrapping and line numbering. Useful for copying from
-" vim buffer to clipboard.
+" Setting toggle for word wrapping and line numbering. Useful for copying
+" from vim buffer to clipboard.
 noremap <F3> :set invnumber invwrap<CR>
 
-" FileType specific configurations.
-autocmd FileType python setlocal softtabstop=2 tabstop=2 expandtab
+" Load visually selected text into / buffer.
+vnoremap // y/<C-R>"<CR>
 
-" Status bar configuration
-set laststatus=2
-if !has('gui_running')
-  set t_Co=256
-endif
+" Color column, but only if we exceed.
+highlight ColorColumn ctermbg=darkred ctermfg=black
+call matchadd('ColorColumn', '\%80v', 100)
 
-set noshowmode
-let g:lightline = {
-      \ 'active': {
-      \   'left': [ [ 'readonly', 'mode', 'modified' ],
-      \             [ 'relativepath' ] ],
-      \   'right': [ [ 'lineinfo' ],
-      \              [ 'percent' ] ]
-      \ },
-      \ 'component': {
-      \   'charvaluehex': '0x%B'
-      \ },
-      \ }
+" InsertLeave fires on esc (and not on CtrlC), so we map CtrlC to esc.
+inoremap <C-C> <Esc>
 
-" FZF configuration
-nnoremap <silent> <C-p> :FZF<CR>
+" Highlight the active buffer's current line number.
+highlight clear CursorLine
+highlight CursorLineNR ctermbg=grey ctermfg=black
+autocmd WinEnter * setlocal cursorline
+autocmd WinLeave * setlocal nocursorline
+
+" Configuring vimwiki
+let g:vimwiki_list = [{'path': '~/vimwiki/',
+                     \ 'syntax': 'default',
+                     \ 'folding': '',
+                     \ 'ext': '.md'},
+                     \{'path': '~/vimwiki-personal/',
+                     \ 'syntax': 'default',
+                     \ 'folding': '',
+                     \ 'ext': '.md'}]
+
+" Open help in a vertical split.
+autocmd FileType help wincmd L
