@@ -53,10 +53,13 @@ cd "$github_directory/ggreer/the_silver_searcher/"
 sudo make install
 
 # Install golang.
-rm -rf "$local_directory/go"
-go_release="go1.9.2.linux-amd64.tar.gz"
+golang_directory="$local_directory/go"
+rm -rf "$golang_directory"
+mkdir -p "$golang_directory"
+go_release="go1.11.4.linux-amd64.tar.gz"
 curl "https://dl.google.com/go/$go_release" > "/tmp/$go_release"
-tar -xvf "/tmp/$go_release" -C "$local_directory"
+tar -xvf "/tmp/$go_release" -C "$golang_directory"
+mv "$golang_directory/go" "$golang_directory/golang"
 rm "/tmp/$go_release"
 
 # Install docker.

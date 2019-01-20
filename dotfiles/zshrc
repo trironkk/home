@@ -2,7 +2,10 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 export ZSH="$HOME/local/github.com/robbyrussell/oh-my-zsh/"
-export PATH="$PATH:$HOME/local/go/bin:$HOME/.local/bin:$HOME/local/go/bin"
+
+export GOROOT="$HOME/local/go/golang"
+export GOPATH="$HOME/local/go/packages"
+export PATH="$PATH:$GOROOT/bin:$GOPATH/bin"
 
 # History configuration.
 export HISTSIZE=1000000
@@ -21,7 +24,7 @@ bindkey '\eb' vi-backward-word
 bindkey '\ef' vi-forward-word
 
 # Prompt setup.
-export THEME_COLOR=green
+export THEME_COLOR=white
 export FG_PROMPT_COLOR=black
 export BG_PROMPT_COLOR=$THEME_COLOR
 export PS1="%{$fg[$FG_PROMPT_COLOR]$bg[$BG_PROMPT_COLOR]%}%n$reset_color@$fg[$FG_PROMPT_COLOR]$bg[$BG_PROMPT_COLOR]%m$reset_color:$fg[$FG_PROMPT_COLOR]$bg[$BG_PROMPT_COLOR]%~/$reset_color
