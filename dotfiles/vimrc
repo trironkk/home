@@ -63,11 +63,11 @@ autocmd WinEnter * setlocal cursorline
 autocmd WinLeave * setlocal nocursorline
 
 " Configuring vimwiki
-let g:vimwiki_list = [{'path': '~/vimwiki/',
+let g:vimwiki_list = [{'path': '~/local/vimwiki/',
                      \ 'syntax': 'default',
                      \ 'folding': '',
                      \ 'ext': '.md'},
-                     \{'path': '~/vimwiki-personal/',
+                     \{'path': '~/local/vimwiki-personal/',
                      \ 'syntax': 'default',
                      \ 'folding': '',
                      \ 'ext': '.md'}]

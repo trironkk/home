@@ -5,11 +5,11 @@ set -e
 set -x
 
 cd "$HOME"
-github_directory="$HOME/workspace/github.com"
 local_directory="$HOME/local"
+github_directory="$local_directory/github.com"
 
-mkdir -p "$github_directory"
 mkdir -p "$local_directory"
+mkdir -p "$github_directory"
 
 # Install utilities.
 if [ -n "$(command -v yum)" ]; then
