@@ -18,6 +18,8 @@ ZSH_THEME="simple"
 plugins=(git fzf)
 source $ZSH/oh-my-zsh.sh
 
+source "$HOME/.fzf.zsh"
+
 bindkey '\eb' vi-backward-word
 bindkey '\ef' vi-forward-word
 
@@ -51,6 +53,11 @@ bindkey "^Z" Resume
 
 # Save tmux pane.
 function SaveTmuxPane {
+  if [ "$TERM" != "screen" ] || [ -z "$TMUX" ]; then
+    echo "Must run within tmux session to save tmux pane."
+    return
+  fi
+
   mkdir -p "$HOME/tmux-panes"
   save_file="$HOME/tmux-panes/$(tmux display-message -p '#W')_$(date +"%Y%m%d-%H%M%S")"
   tmux capture-pane -S -100000
