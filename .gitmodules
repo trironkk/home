@@ -1,0 +1,6 @@
+[submodule "stows/fzf/.fzf"]
+	path = stows/fzf/.fzf
+	url = https://github.com/junegunn/fzf
+[submodule "stows/zsh/.oh-my-zsh"]
+	path = stows/zsh/.oh-my-zsh
+	url = https://github.com/robbyrussell/oh-my-zsh

@@ -14,10 +14,12 @@ setopt extended_history
 setopt hist_ignore_dups
 zshaddhistory() { print -sr "${(z)1%%$'\n'}"; return 1 }
 
+export FZF_TMUX=1
+export FZF_BASE="$USER/.fzf"
 HIST_STAMPS="mm/dd/yyyy" # Configures oh-my-zsh
-ZSH="$HOME/local/github.com/robbyrussell/oh-my-zsh/"
+ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="simple"
-plugins=(git)
+plugins=(git fzf)
 source $ZSH/oh-my-zsh.sh
 
 bindkey '\eb' vi-backward-word
@@ -40,8 +42,6 @@ man() {
     LESS_TERMCAP_us=$'\e[01;32m' \
     command man "$@"
 }
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Allow Ctrl-z to toggle between suspend and resume
 function Resume {
