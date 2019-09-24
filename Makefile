@@ -1,34 +1,25 @@
+all: init stow install-fzf install-tmux install-vim
+
 init:
 	sudo apt install -y \
-	    autoconf \
-	    automake \
-	    gcc \
-	    git \
-	    htop \
-	    jq \
-	    libevent-dev \
-	    libltdl7 \
-	    liblzma-dev \
-	    libncurses-dev \
-	    libpcre3-dev \
-	    make \
-	    pkg-config \
-	    pkg-config \
-	    stow \
-	    tar \
-	    tmux \
-	    vim \
-	    wget \
-	    zlib1g-dev \
-	    zsh
+	    autoconf automake gcc git htop jq libevent-dev libltdl7 liblzma-dev libncurses-dev libpcre3-dev make pkg-config pkg-config stow tar tmux vim wget zlib1g-dev zsh
+
+stow:
+	cd stows/ && stow --target "${HOME}" *
+
+install-vim:
+	vim +PlugInstall +qall
+
+install-fzf:
+	"${HOME}/.fzf/install" --bin
 
 default-shell:
 	sudo chsh -s "$(shell which zsh)" "${USER}"
 
 # Convenience hack to upgrade tmux for default gce vms, which defaulted
 # to 2.3 as of 2019-09-23.
-TMUX_VERSION=2.7
-tmux:
+TMUX_VERSION=2.9a
+install-tmux:
 	cd "$(mktemp -d)" \
 	&& sudo apt-get -y remove tmux \
 	&& sudo apt-get -y install wget tar libevent-dev libncurses-dev \
@@ -43,13 +34,7 @@ tmux:
 	&& sudo rm -rf /usr/local/src/tmux-* \
 	&& sudo mv tmux-${TMUX_VERSION} /usr/local/src
 
-install:
-	cd stows/ && stow --target "${HOME}" *
-
-fzf:
-	"${HOME}/.fzf/install" --bin
-
-uninstall:
+unstow:
 	cd stows/ && stow --delete --target "${HOME}" *
 
 clean:
