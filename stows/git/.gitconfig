@@ -1,7 +1,14 @@
 [core]
 	editor = vim
+
 [user]
 	email = trironk@gmail.com
 	name = trironkk
+
 [status]
 	submoduleSummary = true
+
+[pager]
+	diff = false
+	log = false
+	status = false
