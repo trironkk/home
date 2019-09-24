@@ -10,15 +10,18 @@ setopt extended_history
 setopt hist_ignore_dups
 zshaddhistory() { print -sr "${(z)1%%$'\n'}"; return 1 }
 
+# FZF configuration.
 export FZF_TMUX=1
 export FZF_BASE="$USER/.fzf"
+export FZF_CTRL_T_COMMAND="ag '' -l --hidden"
+[[ -f "$HOME/.fzf.zsh" ]] && source "$HOME/.fzf.zsh"
+
+# Oh My Zsh configuration.
 HIST_STAMPS="mm/dd/yyyy"
 ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="simple"
 plugins=(git fzf)
 source $ZSH/oh-my-zsh.sh
-
-source "$HOME/.fzf.zsh"
 
 bindkey '\eb' vi-backward-word
 bindkey '\ef' vi-forward-word
@@ -66,3 +69,6 @@ function SaveTmuxPane {
 }
 zle -N SaveTmuxPane
 bindkey "^P" SaveTmuxPane
+
+# Google-specific configuration.
+[[ -f "$HOME/.google.zsh" ]] && source "$HOME/.google.zsh"

@@ -1,3 +1,4 @@
 export THEME_COLOR=white
 
-source "$HOME/.fzf.bash"
+[[ -f "$HOME/.fzf.bash" ]] && source "$HOME/.fzf.bash"
+[[ -f "$HOME/.google.bash" ]] && source "$HOME/.google.bash"
