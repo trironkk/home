@@ -77,3 +77,8 @@ let g:vimwiki_list = [{'path': '~/local/vimwiki/',
 
 " Open help in a vertical split.
 autocmd FileType help wincmd L
+
+" Google specific configurations.
+if filereadable(expand("$HOME/.google.vimrc"))
+    source ~/.google.vimrc
+endif
