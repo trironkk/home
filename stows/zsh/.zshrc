@@ -1,6 +1,7 @@
 export GOROOT="$HOME/local/go/golang"
 export GOPATH="$HOME/local/go/packages"
 export PATH="$PATH:$GOROOT/bin:$GOPATH/bin"
+export PATH="$PATH:$HOME/.tools"
 
 # History configuration.
 export HISTSIZE=1000000
