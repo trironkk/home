@@ -1,6 +1,0 @@
-#!/bin/sh
-
-set -x
-
-gconftool-2 --load apps-guake.xml
-gconftool-2 --load schemas-apps-guake.xml

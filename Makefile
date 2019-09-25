@@ -16,6 +16,10 @@ install-fzf:
 default-shell:
 	sudo chsh -s "$(shell which zsh)" "${USER}"
 
+configure-guake:
+	gconftool-2 --load guake/apps-guake.xml
+	gconftool-2 --load guake/schemas-apps-guake.xml
+
 # Convenience hack to upgrade tmux for default gce vms, which defaulted
 # to 2.3 as of 2019-09-23.
 TMUX_VERSION=2.9a
