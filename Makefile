@@ -1,8 +1,8 @@
-all: init stow install-fzf install-tmux install-vim
+all: init stow install-fzf install-ag install-tmux install-vim
 
 init:
 	sudo apt install -y \
-	    autoconf automake gcc git htop jq libevent-dev libltdl7 liblzma-dev libncurses-dev libpcre3-dev make pkg-config pkg-config silversearcher-ag stow tar tmux vim wget zlib1g-dev zsh
+	    autoconf automake gcc git htop jq libevent-dev libltdl7 liblzma-dev libncurses-dev libpcre3-dev make pkg-config pkg-config stow tar tmux vim wget zlib1g-dev zsh
 
 stow:
 	cd stows/ && stow --target "${HOME}" *
@@ -12,6 +12,19 @@ install-vim:
 
 install-fzf:
 	"${HOME}/.fzf/install" --bin
+
+AG_VERSION=2.2.0
+install-ag:
+	cd "$(shell mktemp -d)" \
+	&& pwd \
+	&& sudo apt-get -y remove silversearcher-ag \
+	&& sudo apt-get -y install wget tar libevent-dev libncurses-dev \
+	&& wget "https://geoff.greer.fm/ag/releases/the_silver_searcher-${AG_VERSION}.tar.gz" \
+	&& tar -xvf "the_silver_searcher-${AG_VERSION}.tar.gz" \
+	&& cd "the_silver_searcher-${AG_VERSION}" \
+	&& ./configure \
+	&& make \
+	&& sudo make install
 
 default-shell:
 	sudo chsh -s "$(shell which zsh)" "${USER}"
@@ -24,7 +37,7 @@ configure-guake:
 # to 2.3 as of 2019-09-23.
 TMUX_VERSION=2.9a
 install-tmux:
-	cd "$(mktemp -d)" \
+	cd "$(shell mktemp -d)" \
 	&& sudo apt-get -y remove tmux \
 	&& sudo apt-get -y install wget tar libevent-dev libncurses-dev \
 	&& wget https://github.com/tmux/tmux/releases/download/${TMUX_VERSION}/tmux-${TMUX_VERSION}.tar.gz \
