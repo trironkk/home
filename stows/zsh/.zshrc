@@ -55,7 +55,7 @@ function Resume {
 zle -N Resume
 bindkey "^Z" Resume
 
-# Save tmux pane.
+# Save and open current tmux pane.
 function SaveTmuxPane {
   if [ "$TERM" != "screen" ] || [ -z "$TMUX" ]; then
     echo "Must run within tmux session to save tmux pane."
@@ -66,7 +66,7 @@ function SaveTmuxPane {
   save_file="$HOME/tmux-panes/$(tmux display-message -p '#W')_$(date +"%Y%m%d-%H%M%S")"
   tmux capture-pane -S -100000
   tmux save-buffer "$save_file"
-  echo "Saved buffer to \"$save_file\"."
+  vim "$save_file" < /dev/tty
 }
 zle -N SaveTmuxPane
 bindkey "^P" SaveTmuxPane
