@@ -4,7 +4,7 @@ import sys
 import json
 import yaml
 
-yaml_body = yaml.load(sys.stdin.read())
+yaml_body = yaml.load(sys.stdin.read(), yaml.FullLoader)
 json_body = json.dumps(yaml_body)
 
-print(yaml_body, end='')
+print(json_body, end='')
