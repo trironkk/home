@@ -1,3 +1,4 @@
+export EDITOR=vim
 export GOROOT="$HOME/local/go/golang"
 export GOPATH="$HOME/local/go/packages"
 export PATH="$PATH:$GOROOT/bin:$GOPATH/bin"
@@ -28,7 +29,7 @@ bindkey '\eb' vi-backward-word
 bindkey '\ef' vi-forward-word
 
 # Prompt setup.
-export THEME_COLOR=white
+export THEME_COLOR=green
 export FG_PROMPT_COLOR=black
 export BG_PROMPT_COLOR=$THEME_COLOR
 export PS1="%{$fg[$FG_PROMPT_COLOR]$bg[$BG_PROMPT_COLOR]%}%n$reset_color@$fg[$FG_PROMPT_COLOR]$bg[$BG_PROMPT_COLOR]%m$reset_color:$fg[$FG_PROMPT_COLOR]$bg[$BG_PROMPT_COLOR]%~/$reset_color

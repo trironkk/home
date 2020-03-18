@@ -18,6 +18,7 @@ Plug 'terryma/vim-expand-region'
 Plug 'tpope/vim-abolish'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-syntastic/syntastic'
 Plug 'vimwiki/vimwiki'
 call plug#end()
 
@@ -30,7 +31,7 @@ set undolevels=1000
 set undoreload=10000
 
 " Line wrapping and numbering
-set nowrap number
+set nowrap number relativenumber
 
 " Whitespace Management
 set expandtab tabstop=4 paste
@@ -42,12 +43,11 @@ syntax enable
 
 " Searching
 set incsearch hlsearch smartcase
-highlight Search guibg=grey guifg=white
-highlight Search cterm=NONE ctermfg=white ctermbg=darkgrey
+highlight Search cterm=NONE ctermbg=Yellow ctermfg=Black
 
 " Setting toggle for word wrapping and line numbering. Useful for copying
 " from vim buffer to clipboard.
-noremap <F3> :set invnumber invwrap<CR>
+noremap <F3> :set invrelativenumber invnumber invwrap<CR>
 
 " Load visually selected text into / buffer.
 vnoremap // y/<C-R>"<CR>
@@ -58,6 +58,11 @@ call matchadd('ColorColumn', '\%80v', 100)
 
 " InsertLeave fires on esc (and not on CtrlC), so we map CtrlC to esc.
 inoremap <C-C> <Esc>
+
+" Customize diffing color scheme.
+if &diff
+    colorscheme desert
+endif
 
 " Highlight the active buffer's current line number.
 highlight clear CursorLine
