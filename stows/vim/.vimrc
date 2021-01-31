@@ -20,6 +20,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-syntastic/syntastic'
 Plug 'vimwiki/vimwiki'
+Plug 'vito-c/jq.vim'
 call plug#end()
 
 filetype plugin indent on
@@ -59,10 +60,7 @@ call matchadd('ColorColumn', '\%80v', 100)
 " InsertLeave fires on esc (and not on CtrlC), so we map CtrlC to esc.
 inoremap <C-C> <Esc>
 
-" Customize diffing color scheme.
-if &diff
-    colorscheme desert
-endif
+colorscheme desert
 
 " Highlight the active buffer's current line number.
 highlight clear CursorLine
@@ -82,6 +80,7 @@ let g:vimwiki_list = [{'path': '~/local/vimwiki/',
 
 " Open help in a vertical split.
 autocmd FileType help wincmd L
+autocmd FileType jq setlocal expandtab
 
 " Google specific configurations.
 if filereadable(expand("$HOME/.google.vimrc"))
