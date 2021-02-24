@@ -1,7 +1,7 @@
 export EDITOR=vim
 export GOROOT="$HOME/local/go/golang"
 export GOPATH="$HOME/local/go/packages"
-export PATH="$PATH:$GOROOT/bin:$GOPATH/bin"
+export PATH="$PATH:$GOPATH/bin:$GOROOT/bin"
 export PATH="$PATH:$HOME/.tools"
 
 # History configuration.
