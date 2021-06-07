@@ -12,7 +12,11 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
-Plug 'junegunn/fzf.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'junegunn/fzf'
+Plug 'endel/vim-github-colorscheme'
 Plug 'kshenoy/vim-signature'
 Plug 'terryma/vim-expand-region'
 Plug 'tpope/vim-abolish'
@@ -57,10 +61,11 @@ vnoremap // y/<C-R>"<CR>
 highlight ColorColumn ctermbg=darkred ctermfg=black
 call matchadd('ColorColumn', '\%80v', 100)
 
-" InsertLeave fires on esc (and not on CtrlC), so we map CtrlC to esc.
-inoremap <C-C> <Esc>
-
 colorscheme desert
+set t_Co=256
+if &diff
+  colorscheme github
+endif
 
 " Highlight the active buffer's current line number.
 highlight clear CursorLine
@@ -81,6 +86,25 @@ let g:vimwiki_list = [{'path': '~/local/vimwiki/',
 " Open help in a vertical split.
 autocmd FileType help wincmd L
 autocmd FileType jq setlocal expandtab
+
+" FZF configurations
+nnoremap <silent> <C-p> :FZF<CR>
+
+" LSP configurations
+nnoremap gd :LspDefinition<CR>
+nnoremap gr :LspReferences<CR>
+nnoremap gi :LspHover<CR>
+
+" Send async completion requests.
+let g:lsp_async_completion = 1
+
+" Enable UI for diagnostics
+let g:lsp_signs_enabled = 1           " enable diagnostics signs in the gutter
+let g:lsp_diagnostics_echo_cursor = 1 " enable echo under cursor when in normal mode
+
+" Automatically show completion options
+let g:asyncomplete_auto_popup = 1
+
 
 " Google specific configurations.
 if filereadable(expand("$HOME/.google.vimrc"))

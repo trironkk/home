@@ -4,6 +4,8 @@ export GOPATH="$HOME/local/go/packages"
 export PATH="$PATH:$GOPATH/bin:$GOROOT/bin"
 export PATH="$PATH:$HOME/.tools"
 
+autoload -Uz add-zsh-hook
+
 # History configuration.
 export HISTSIZE=1000000
 export SAVEHIST=1000000
@@ -16,6 +18,7 @@ zshaddhistory() { print -sr "${(z)1%%$'\n'}"; return 1 }
 export FZF_TMUX=1
 export FZF_BASE="$USER/.fzf"
 export FZF_CTRL_T_COMMAND="ag '' -l --hidden"
+export FZF_CTRL_T_OPTS="--preview 'cat {}'"
 [[ -f "$HOME/.fzf.zsh" ]] && source "$HOME/.fzf.zsh"
 
 # Oh My Zsh configuration.
