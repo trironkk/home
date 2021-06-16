@@ -18,7 +18,8 @@ zshaddhistory() { print -sr "${(z)1%%$'\n'}"; return 1 }
 export FZF_TMUX=1
 export FZF_BASE="$USER/.fzf"
 export FZF_CTRL_T_COMMAND="ag '' -l --hidden"
-export FZF_CTRL_T_OPTS="--preview 'cat {}'"
+export FZF_CTRL_T_OPTS="--ansi --preview-window 'right:60%' --preview 'batcat --color=always --style=plain --line-range :300 {}'"
+export FZF_DEFAULT_OPTS="--bind alt-up:preview-page-up,alt-down:preview-page-down"
 [[ -f "$HOME/.fzf.zsh" ]] && source "$HOME/.fzf.zsh"
 
 # Oh My Zsh configuration.

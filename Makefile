@@ -3,7 +3,7 @@ all: init stow install-fzf install-ag install-tmux install-vim
 init:
 	sudo apt update \
 	&& sudo apt install -y \
-	    autoconf automake gcc git htop jq libevent-dev libltdl7 liblzma-dev libncurses-dev libpcre3-dev make pkg-config pkg-config stow tar tmux vim wget zlib1g-dev zsh fd-find
+	    autoconf automake gcc git htop jq libevent-dev libltdl7 liblzma-dev libncurses-dev libpcre3-dev make pkg-config pkg-config stow tar tmux vim wget zlib1g-dev zsh fd-find bat ripgrep
 
 stow:
 	cd stows/ && stow --target "${HOME}" *
