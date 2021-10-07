@@ -16,6 +16,8 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'prabirshrestha/quickpick.vim'
+Plug 'prabirshrestha/quickpick-lsp.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'endel/vim-github-colorscheme'
@@ -66,11 +68,8 @@ if &diff
   colorscheme github
 endif
 
-" Popup Mentu
+" Popup Menu
 highlight Pmenu ctermbg=darkgrey guibg=darkgrey
-
-highlight ColorColumn ctermbg=darkred ctermfg=black
-call matchadd('ColorColumn', '\%80v', 100)
 
 " Highlight the active buffer's current line number.
 highlight clear CursorLine
@@ -83,11 +82,11 @@ autocmd WinLeave * setlocal nocursorline
 let g:vimwiki_list = [{'path': '~/local/vimwiki/',
                      \ 'syntax': 'default',
                      \ 'folding': '',
-                     \ 'ext': '.md'},
+                     \ 'ext': '.vimwiki'},
                      \{'path': '~/local/vimwiki-personal/',
                      \ 'syntax': 'default',
                      \ 'folding': '',
-                     \ 'ext': '.md'}]
+                     \ 'ext': '.vimwiki'}]
 
 " Open help in a vertical split.
 autocmd FileType help wincmd L
@@ -97,8 +96,11 @@ autocmd FileType jq setlocal expandtab
 nnoremap <silent> <C-p> :FZF<CR>
 
 " LSP configurations
+autocmd FileType java setlocal omnifunc=lsp#complete
+autocmd FileType python setlocal omnifunc=lsp#complete
+
 function! s:on_lsp_buffer_enabled() abort
-    " setlocal omnifunc=lsp#complete
+    setlocal omnifunc=lsp#complete
     setlocal signcolumn=yes
     if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
     nmap <buffer> gd :LspDefinition<CR>
@@ -116,15 +118,23 @@ function! s:on_lsp_buffer_enabled() abort
 
     let g:lsp_format_sync_timeout = 1000
 
-    let g:lsp_diagnostics_echo_cursor = 1 " enable echo under cursor when in normal mode
+    let g:lsp_diagnostics_echo_cursor = 1
     let g:lsp_document_highlight_enabled = 1
     let g:lsp_highlights_enabled = 1
-    let g:lsp_log_file = expand('~/vim-lsp.log')
+    " let g:lsp_log_file = expand('~/vim-lsp.log')
     let g:lsp_semantic_enabled = 1
-    let g:lsp_signs_enabled = 1           " enable diagnostics signs in the gutter
+    let g:lsp_signs_enabled = 1
 
     let g:lsp_preview_float = 1
     let g:lsp_show_workspace_edits = 1
+
+    " let g:asyncomplete_auto_popup = 1
+    " let g:asyncomplete_auto_completeopt = 0
+    " set completeopt=menuone,noinsert,preview
+
+    let g:lsp_format_sync_timeout = 1000
+    autocmd! BufWritePre *.java call execute('LspDocumentFormatSync')
+    autocmd! BufWritePre *.py call execute('LspDocumentFormatSync')
 endfunction
 
 augroup lsp_install
