@@ -13,11 +13,6 @@ endif
 
 call plug#begin('~/.vim/plugged')
 Plug 'prabirshrestha/vim-lsp'
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
-Plug 'prabirshrestha/quickpick.vim'
-Plug 'prabirshrestha/quickpick-lsp.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'endel/vim-github-colorscheme'
@@ -62,7 +57,7 @@ noremap <F3> :set invrelativenumber invnumber invwrap<CR>
 vnoremap // y/<C-R>"<CR>
 
 " Base color scheme
-colorscheme desert
+colorscheme default
 set t_Co=256
 if &diff
   colorscheme github
@@ -97,6 +92,7 @@ nnoremap <silent> <C-p> :FZF<CR>
 
 " LSP configurations
 autocmd FileType java setlocal omnifunc=lsp#complete
+autocmd FileType javascript setlocal omnifunc=lsp#complete
 autocmd FileType python setlocal omnifunc=lsp#complete
 
 function! s:on_lsp_buffer_enabled() abort
@@ -110,9 +106,12 @@ function! s:on_lsp_buffer_enabled() abort
 
     nmap <buffer> <leader>rn <plug>(lsp-rename)
     nmap <buffer> <leader>d :LspDocumentDiagnostics<CR>
+    nmap <buffer> <leader>q :LspCodeAction<CR>
 
     nmap <buffer> [g <plug>(lsp-previous-diagnostic)
     nmap <buffer> ]g <plug>(lsp-next-diagnostic)
+    nmap <buffer> [e <plug>(lsp-previous-error)
+    nmap <buffer> ]e <plug>(lsp-next-error)
 
     nmap <buffer> K <plug>(lsp-hover)
 

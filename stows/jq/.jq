@@ -5,7 +5,17 @@ def explore:
         (
           [ $p[]
               | if type == "string"
-                then "." + .
+                then
+                  "." +
+                    if false
+                      or (. | contains(" "))
+                      or (. | contains("-"))
+                      or (. | contains(":"))
+                      or (. | contains("["))
+                      or (. | contains("]"))
+                    then "[\"" + (. | tostring) + "\"]"
+                    else .
+                    end
                 else "[" + (. | tostring) + "]"
                 end
           ] | join("")
