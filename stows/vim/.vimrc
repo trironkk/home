@@ -94,6 +94,7 @@ nnoremap <silent> <C-p> :FZF<CR>
 autocmd FileType java setlocal omnifunc=lsp#complete
 autocmd FileType javascript setlocal omnifunc=lsp#complete
 autocmd FileType python setlocal omnifunc=lsp#complete
+autocmd FileType textproto setlocal omnifunc=lsp#complete
 
 function! s:on_lsp_buffer_enabled() abort
     setlocal omnifunc=lsp#complete
@@ -142,7 +143,33 @@ augroup lsp_install
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
 
+" TMUX specific adjustments
+" See :help tmux-integration
+if !has('gui_running') && &term =~ '^\%(screen\|tmux\)'
+    " Better mouse support, see  :help 'ttymouse'
+    set ttymouse=sgr
+
+    " Enable bracketed paste mode, see  :help xterm-bracketed-paste
+    let &t_BE = "\<Esc>[?2004h"
+    let &t_BD = "\<Esc>[?2004l"
+    let &t_PS = "\<Esc>[200~"
+    let &t_PE = "\<Esc>[201~"
+
+    " Enable focus event tracking, see  :help xterm-focus-event
+    let &t_fe = "\<Esc>[?1004h"
+    let &t_fd = "\<Esc>[?1004l"
+    execute "set <FocusGained>=\<Esc>[I"
+    execute "set <FocusLost>=\<Esc>[O"
+
+    " Enable modified arrow keys, see  :help arrow_modifiers
+    execute "silent! set <xUp>=\<Esc>[@;*A"
+    execute "silent! set <xDown>=\<Esc>[@;*B"
+    execute "silent! set <xRight>=\<Esc>[@;*C"
+    execute "silent! set <xLeft>=\<Esc>[@;*D"
+endif
+
 " Google specific configurations.
 if filereadable(expand("~/.google.vimrc"))
     source ~/.google.vimrc
 endif
+

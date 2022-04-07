@@ -69,8 +69,9 @@ function SaveTmuxPane {
 
   mkdir -p "$HOME/tmux-panes"
   save_file="$HOME/tmux-panes/$(tmux display-message -p '#W')_$(date +"%Y%m%d-%H%M%S")"
-  tmux capture-pane -S -100000
+  tmux capture-pane -J -S -100000
   tmux save-buffer "$save_file"
+  sed 's/\s\+$//' -i "$save_file"
   vim "$save_file" < /dev/tty
 }
 zle -N SaveTmuxPane
