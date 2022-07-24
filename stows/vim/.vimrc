@@ -56,12 +56,9 @@ noremap <F3> :set invrelativenumber invnumber invwrap<CR>
 " Load visually selected text into / buffer.
 vnoremap // y/<C-R>"<CR>
 
-" Base color scheme
-colorscheme default
+" Color scheme
+colorscheme github
 set t_Co=256
-if &diff
-  colorscheme github
-endif
 
 " Popup Menu
 highlight Pmenu ctermbg=darkgrey guibg=darkgrey
