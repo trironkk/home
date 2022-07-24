@@ -1,0 +1,20 @@
+order += "google_cal"
+order += "battery_level"
+order += "battery 1"
+order += "tztime local"
+
+battery 1 {
+    last_full_capacity = true
+    format = "<span background='#a3be8c'>  %status %percentage </span>"
+    format_down = "No Battery"
+    status_chr = "Charging"
+    status_bat = "Battery"
+    status_unk = "Unknown"
+    status_full = "Charged"
+    path = "/sys/class/power_supply/BAT%d/uevent"
+    low_threshold = 10
+}
+
+tztime local {
+    format = "%Y-%m-%d %I:%M:%S"
+}
