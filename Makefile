@@ -22,6 +22,7 @@ init:
 	        tar \
 	        tmux \
 	        vim \
+	        neovim \
 	        wget \
 	        zlib1g-dev \
 	        zsh \

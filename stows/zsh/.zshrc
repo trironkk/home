@@ -62,7 +62,7 @@ bindkey "^Z" Resume
 
 # Save and open current tmux pane.
 function SaveTmuxPane {
-  if [ "$TERM" != "screen" ] || [ -z "$TMUX" ]; then
+  if [ "$TERM" != "tmux-256color" ] || [ -z "$TMUX" ]; then
     echo "Must run within tmux session to save tmux pane."
     return
   fi

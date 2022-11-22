@@ -33,6 +33,9 @@ exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=secrets
 # https://github.com/sagb/alttab
 exec --no-startup-id alttab
 
+# Reconfigure monitor layout.
+exec_always --no-startup-id /usr/bin/autorandr --change
+
 set $refresh_i3status killall -SIGUSR1 i3status
 
 # Use pactl to adjust volume in PulseAudio.
@@ -41,8 +44,8 @@ bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5% && ki
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle && killall -SIGUSR1 i3status
 bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle && killall -SIGUSR1 i3status
 
-bindsym XF86MonBrightnessDown exec --no-startup-id /usr/bin/xbacklight -dec 5
-bindsym XF86MonBrightnessUp exec --no-startup-id /usr/bin/xbacklight -inc 5
+bindsym XF86MonBrightnessDown exec --no-startup-id /usr/bin/light -U 5
+bindsym XF86MonBrightnessUp exec --no-startup-id /usr/bin/light -A 5
 
 floating_modifier $mod
 focus_follows_mouse no
@@ -177,7 +180,42 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# exec /usr/share/goobuntu-indicator/goobuntu_indicator.py
+# https://groups.google.com/a/google.com/g/i3-users/c/cJO-nTp2Uok/m/7k1UmXV7BQAJ
+# exec --no-startup-id /usr/bin/gjs /usr/share/gnome-shell/org.gnome.ScreenSaver
+# exec --no-startup-id /usr/bin/gjs /usr/share/gnome-shell/org.gnome.Shell.Notifications
+# exec --no-startup-id /usr/bin/python3 -sE /usr/share/goobuntu-indicator/goobuntu_indicator.py
+# exec --no-startup-id /usr/libexec/bluetooth/obexd
+# exec --no-startup-id /usr/libexec/gdm-x-session --run-script /usr/bin/gnome-session
+# exec --no-startup-id /usr/libexec/gnome-session-binary
+# exec --no-startup-id /usr/libexec/gnome-shell-calendar-server
+# exec --no-startup-id /usr/libexec/goa-daemon
+# exec --no-startup-id /usr/libexec/goa-identity-service
+# exec --no-startup-id /usr/libexec/gsd-a11y-settings
+# exec --no-startup-id /usr/libexec/gsd-color
+# exec --no-startup-id /usr/libexec/gsd-datetime
+# exec --no-startup-id /usr/libexec/gsd-disk-utility-notify
+# exec --no-startup-id /usr/libexec/gsd-housekeeping
+# exec --no-startup-id /usr/libexec/gsd-keyboard
+# exec --no-startup-id /usr/libexec/gsd-media-keys
+# exec --no-startup-id /usr/libexec/gsd-power
+# exec --no-startup-id /usr/libexec/gsd-rfkill
+# exec --no-startup-id /usr/libexec/gsd-screensaver-proxy
+# exec --no-startup-id /usr/libexec/gsd-sharing
+# exec --no-startup-id /usr/libexec/gsd-smartcard
+# exec --no-startup-id /usr/libexec/gsd-sound
+# exec --no-startup-id /usr/libexec/gsd-usb-protection
+# exec --no-startup-id /usr/libexec/gsd-wacom
+# exec --no-startup-id /usr/libexec/gsd-wwan
+# exec --no-startup-id /usr/libexec/gsd-xsettings
+# exec --no-startup-id /usr/libexec/gvfs-afc-volume-monitor
+# exec --no-startup-id /usr/libexec/gvfsd-dnssd --spawner :1.2 /org/gtk/gvfs/exec_spaw/3
+# exec --no-startup-id /usr/libexec/gvfsd-metadata
+# exec --no-startup-id /usr/libexec/gvfsd-network --spawner :1.2 /org/gtk/gvfs/exec_spaw/1
+# exec --no-startup-id /usr/libexec/gvfsd-trash --spawner :1.2 /org/gtk/gvfs/exec_spaw/0
+# exec --no-startup-id /usr/libexec/gvfs-goa-volume-monitor
+# exec --no-startup-id /usr/libexec/gvfs-gphoto2-volume-monitor
+# exec --no-startup-id /usr/libexec/gvfs-mtp-volume-monitor
+# exec --no-startup-id /usr/libexec/gvfs-udisks2-volume-monitor
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
