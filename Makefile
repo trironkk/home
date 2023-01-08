@@ -1,8 +1,9 @@
-all: init stow install-fzf install-ag install-tmux install-vim
+all: init stow install-fzf install-tmux install-vim
 
 init:
 	sudo apt update \
 	&& sudo apt install -y \
+	        silversearcher-ag \
 	        autorandr \
 	        autoconf \
 	        automake \
@@ -38,19 +39,6 @@ install-vim:
 
 install-fzf:
 	"${HOME}/.fzf/install" --bin
-
-AG_VERSION=2.2.0
-install-ag:
-	cd "$(shell mktemp -d)" \
-	&& pwd \
-	&& sudo apt-get -y remove silversearcher-ag \
-	&& sudo apt-get -y install wget tar libevent-dev libncurses-dev \
-	&& wget "https://geoff.greer.fm/ag/releases/the_silver_searcher-${AG_VERSION}.tar.gz" \
-	&& tar -xvf "the_silver_searcher-${AG_VERSION}.tar.gz" \
-	&& cd "the_silver_searcher-${AG_VERSION}" \
-	&& ./configure \
-	&& make \
-	&& sudo make install
 
 default-shell:
 	sudo chsh -s "$(shell which zsh)" "${USER}"
