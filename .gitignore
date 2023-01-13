@@ -1,2 +1,3 @@
 *.swp
 stows/vim/.vim
+stows/nvim/.config/nvim/.netrwhist

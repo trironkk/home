@@ -3,11 +3,17 @@ all: init stow install-fzf install-tmux install-vim
 init:
 	sudo apt update \
 	&& sudo apt install -y \
-	        silversearcher-ag \
-	        autorandr \
 	        autoconf \
 	        automake \
+	        autorandr \
+	        bat \
+	        cmake \
+	        curl \
+	        doxygen \
+	        fd-find \
+	        g++ \
 	        gcc \
+	        gettext \
 	        git \
 	        htop \
 	        jq \
@@ -16,23 +22,34 @@ init:
 	        liblzma-dev \
 	        libncurses-dev \
 	        libpcre3-dev \
+	        libtool \
+	        libtool-bin \
 	        make \
+	        neovim \
+	        ninja-build \
 	        pkg-config \
-	        pkg-config \
+	        silversearcher-ag \
 	        stow \
 	        tar \
 	        tmux \
+	        unzip \
 	        vim \
-	        neovim \
 	        wget \
 	        zlib1g-dev \
 	        zsh \
-	        fd-find \
-	        bat \
 	        ripgrep
 
 stow:
 	cd stows/ && stow --target "${HOME}" *
+
+install-neovim:
+	mkdir "~/local/github.com/neovim/neovim"
+	git clone "https://github.com/neovim/neovim" "~/local/github.com/neovim/neovim"
+	cd "~/local/github.com/neovim/neovim"
+	make CMAKE_BUILD_TYPE=RelWithDebInfo
+	sudo make install
+	git clone --depth 1 "https://github.com/wbthomason/packer.nvim" "~/.local/share/nvim/site/pack/packer/start/packer.nvim"
+	# TODO: Trigger PackerSync.
 
 install-vim:
 	vim +PlugInstall +qall
