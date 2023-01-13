@@ -12,11 +12,17 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
-Plug 'prabirshrestha/vim-lsp'
+Plug 'bazelbuild/vim-bazel'
+Plug 'endel/vim-github-colorscheme'
+Plug 'google/vim-maktaba'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'endel/vim-github-colorscheme'
 Plug 'kshenoy/vim-signature'
+Plug 'mattn/vim-lsp-settings'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'preservim/nerdtree'
+Plug 'mattn/vim-lsp-settings'
 Plug 'terryma/vim-expand-region'
 Plug 'tpope/vim-abolish'
 Plug 'vim-airline/vim-airline'
@@ -132,6 +138,16 @@ function! s:on_lsp_buffer_enabled() abort
     let g:lsp_format_sync_timeout = 1000
     autocmd! BufWritePre *.java call execute('LspDocumentFormatSync')
     autocmd! BufWritePre *.py call execute('LspDocumentFormatSync')
+
+    " initialize Python lsp
+    if executable('pylsp')
+        " pip install python-lsp-server
+        au User lsp_setup call lsp#register_server({
+            \ 'name': 'pylsp',
+            \ 'cmd': {server_info->['pylsp']},
+            \ 'allowlist': ['python'],
+            \ })
+    endif
 endfunction
 
 augroup lsp_install
