@@ -27,6 +27,7 @@ init:
 	        make \
 	        neovim \
 	        ninja-build \
+	        nodejs \
 	        pkg-config \
 	        silversearcher-ag \
 	        stow \

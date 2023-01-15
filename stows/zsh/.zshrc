@@ -1,6 +1,6 @@
 export EDITOR=vim
-export GOROOT="$HOME/local/go/golang"
-export GOPATH="$HOME/local/go/packages"
+# export GOROOT="$HOME/local/go/golang"
+# export GOPATH="$HOME/local/go/packages"
 export PATH="$PATH:$GOPATH/bin:$GOROOT/bin"
 export PATH="$PATH:$HOME/.tools"
 
