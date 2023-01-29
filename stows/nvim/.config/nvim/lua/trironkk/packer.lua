@@ -15,27 +15,28 @@ return require('packer').startup(function(use)
             { 'nvim-lua/plenary.nvim' }
         }
     }
-    use( 'nvim-treesitter/nvim-treesitter', {run= ':TSUpdate'} )
-    use( 'nvim-treesitter/playground' )
-    use( 'mbbill/undotree' )
-    use( 'nvim-telescope/telescope-file-browser.nvim' )
-    use( 'tpope/vim-abolish' )
+    use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
+    use('nvim-treesitter/playground')
+    use('mbbill/undotree')
+    use('nvim-telescope/telescope-file-browser.nvim')
+    use('nvim-telescope/telescope-project.nvim')
+    use('tpope/vim-abolish')
 
     use {
         'VonHeikemen/lsp-zero.nvim',
         requires = {
             -- LSP Support
-            {'neovim/nvim-lspconfig'},
-            {'williamboman/mason.nvim'},
-            {'williamboman/mason-lspconfig.nvim'},
+            { 'neovim/nvim-lspconfig' },
+            { 'williamboman/mason.nvim' },
+            { 'williamboman/mason-lspconfig.nvim' },
 
             -- Autocompletion
-            {'hrsh7th/nvim-cmp'},
+            { 'hrsh7th/nvim-cmp' },
             -- {'hrsh7th/cmp-buffer'},
             -- {'hrsh7th/cmp-path'},
-            {'saadparwaiz1/cmp_luasnip'},
-            {'hrsh7th/cmp-nvim-lsp'},
-            {'hrsh7th/cmp-nvim-lua'},
+            { 'saadparwaiz1/cmp_luasnip' },
+            { 'hrsh7th/cmp-nvim-lsp' },
+            { 'hrsh7th/cmp-nvim-lua' },
 
             -- Snippets
             -- {'L3MON4D3/LuaSnip'},
@@ -54,6 +55,18 @@ return require('packer').startup(function(use)
             }
         end
     }
-    use( 'tomasiser/vim-code-dark' )
+    use('tomasiser/vim-code-dark')
+
+    -- use( 'sudormrfbin/cheatsheet.nvim' )
+    use('/home/trironkk/local/github.com/trironkk/cheatsheet.nvim')
+
+    use({
+        "L3MON4D3/LuaSnip",
+        -- follow latest release.
+        tag = "v<CurrentMajor>.*",
+        -- install jsregexp (optional!:).
+        run = "make install_jsregexp",
+        after = 'nvim-cmp',
+    })
 
 end)

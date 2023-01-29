@@ -25,7 +25,6 @@ init:
 	        libtool \
 	        libtool-bin \
 	        make \
-	        neovim \
 	        ninja-build \
 	        nodejs \
 	        pkg-config \
