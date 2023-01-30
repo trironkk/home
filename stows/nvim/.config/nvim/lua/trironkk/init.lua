@@ -1,5 +1,9 @@
 require("packer")
 
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+vim.opt.termguicolors = true
+
 vim.opt.mouse = ""
 
 vim.opt.number = true
@@ -38,3 +42,5 @@ vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set("n", "<leader>F", function()
     vim.lsp.buf.format()
 end)
+
+vim.keymap.set("t", "<Esc>", "<C-\\><C-N>")

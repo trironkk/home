@@ -9,8 +9,9 @@ vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fb', file_browser.file_browser, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 vim.keymap.set('n', '<leader>fp', project.project, {})
-vim.keymap.set('n', '<leader>fc',
-    function() return builtin.find_files({ find_command = { 'rg', '--files', '--iglob', '!.git', '--hidden', vim.env.HOME .. '/.config/nvim' },
+vim.keymap.set('n', '<leader>fv',
+    function() return builtin.find_files({ find_command = { 'rg', '--files', '--iglob', '!.git', '--hidden',
+            vim.env.HOME .. '/.config/nvim' },
         })
     end, {})
 
@@ -47,6 +48,7 @@ require('telescope').setup {
                 ["i"] = {
                     ["<C-j>"] = actions.move_selection_next,
                     ["<C-k>"] = actions.move_selection_previous,
+                    ["<CR>"] = project.change_current_directory,
                 },
                 ["n"] = {
                 },

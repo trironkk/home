@@ -2,12 +2,23 @@ vim.cmd [[packadd packer.nvim]]
 
 return require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
+    use {
+        'nvim-tree/nvim-tree.lua',
+        requires = {
+            'nvim-tree/nvim-web-devicons', -- optional, for file icons
+        },
+        tag = 'nightly' -- optional, updated every week. (see issue #1193)
+    }
     use({
         "kyazdani42/nvim-tree.lua",
         requires = {
             "kyazdani42/nvim-web-devicons", -- optional, for file icons
         },
     })
+    use {
+        'nvim-lualine/lualine.nvim',
+        requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+    }
     use { 'nvim-telescope/telescope-symbols.nvim' }
     use {
         'nvim-telescope/telescope.nvim', tag = '0.1.0',
@@ -32,14 +43,14 @@ return require('packer').startup(function(use)
 
             -- Autocompletion
             { 'hrsh7th/nvim-cmp' },
-            -- {'hrsh7th/cmp-buffer'},
-            -- {'hrsh7th/cmp-path'},
+            { 'hrsh7th/cmp-buffer' },
+            { 'hrsh7th/cmp-path' },
             { 'saadparwaiz1/cmp_luasnip' },
             { 'hrsh7th/cmp-nvim-lsp' },
             { 'hrsh7th/cmp-nvim-lua' },
 
             -- Snippets
-            -- {'L3MON4D3/LuaSnip'},
+            { 'L3MON4D3/LuaSnip' },
             -- Snippet Collection (Optional)
             -- {'rafamadriz/friendly-snippets'},
         }
@@ -59,14 +70,4 @@ return require('packer').startup(function(use)
 
     -- use( 'sudormrfbin/cheatsheet.nvim' )
     use('/home/trironkk/local/github.com/trironkk/cheatsheet.nvim')
-
-    use({
-        "L3MON4D3/LuaSnip",
-        -- follow latest release.
-        tag = "v<CurrentMajor>.*",
-        -- install jsregexp (optional!:).
-        run = "make install_jsregexp",
-        after = 'nvim-cmp',
-    })
-
 end)

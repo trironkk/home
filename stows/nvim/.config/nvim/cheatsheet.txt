@@ -14,6 +14,7 @@ Code Action        | <leader>vca
 
 ## Telescope
 Find project    | <leader>fp
+Find vim config | <leader>fv
 Find files      | <leader>ff
 Find grep       | <leader>fg
 Find browser    | <leader>fb
@@ -29,3 +30,6 @@ Trouble References        | gR
 
 ## Undotree
 Undo Toggle            | <leader>u
+
+## NVim Tree
+Toggle Tree            | <leader>t
