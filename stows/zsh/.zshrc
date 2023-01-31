@@ -77,5 +77,12 @@ function SaveTmuxPane {
 zle -N SaveTmuxPane
 bindkey "^P" SaveTmuxPane
 
+# Open Vim (without polluting terminal output)
+function OpenVim {
+  nvim +RestoreSession
+}
+zle -N OpenVim
+bindkey "^\`" OpenVim
+#
 # Google-specific configuration.
 [[ -f "$HOME/.google.zsh" ]] && source "$HOME/.google.zsh"

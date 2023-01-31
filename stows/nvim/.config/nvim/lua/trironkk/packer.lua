@@ -2,19 +2,7 @@ vim.cmd [[packadd packer.nvim]]
 
 return require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
-    use {
-        'nvim-tree/nvim-tree.lua',
-        requires = {
-            'nvim-tree/nvim-web-devicons', -- optional, for file icons
-        },
-        tag = 'nightly' -- optional, updated every week. (see issue #1193)
-    }
-    use({
-        "kyazdani42/nvim-tree.lua",
-        requires = {
-            "kyazdani42/nvim-web-devicons", -- optional, for file icons
-        },
-    })
+    use 'tpope/vim-eunuch'
     use {
         'nvim-lualine/lualine.nvim',
         requires = { 'kyazdani42/nvim-web-devicons', opt = true }
@@ -30,7 +18,6 @@ return require('packer').startup(function(use)
     use('nvim-treesitter/playground')
     use('mbbill/undotree')
     use('nvim-telescope/telescope-file-browser.nvim')
-    use('nvim-telescope/telescope-project.nvim')
     use('tpope/vim-abolish')
 
     use {
@@ -52,22 +39,32 @@ return require('packer').startup(function(use)
             -- Snippets
             { 'L3MON4D3/LuaSnip' },
             -- Snippet Collection (Optional)
-            -- {'rafamadriz/friendly-snippets'},
+            { 'rafamadriz/friendly-snippets' },
         }
     }
     use {
         "folke/trouble.nvim",
         requires = "kyazdani42/nvim-web-devicons",
-        config = function()
-            require("trouble").setup {
-                -- your configuration comes here
-                -- or leave it empty to use the default settings
-                -- refer to the configuration section below
-            }
-        end
     }
     use('tomasiser/vim-code-dark')
 
     -- use( 'sudormrfbin/cheatsheet.nvim' )
     use('/home/trironkk/local/github.com/trironkk/cheatsheet.nvim')
+
+    use {
+        'rmagatti/auto-session',
+        config = function()
+            require("auto-session").setup {
+                log_level = "error",
+                auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
+            }
+        end
+    }
+    use {
+        'rmagatti/session-lens',
+        requires = { 'rmagatti/auto-session', 'nvim-telescope/telescope.nvim' },
+        config = function()
+            require('session-lens').setup({ --[[your custom config--]] })
+        end
+    }
 end)

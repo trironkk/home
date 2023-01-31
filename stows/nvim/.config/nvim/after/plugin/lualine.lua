@@ -17,21 +17,14 @@ require('lualine').setup({
             winbar = 1000,
         }
     },
-    tabline = {
-        lualine_a = { '%f' },
-        lualine_b = {},
-        lualine_c = {},
-        lualine_x = {},
-        lualine_y = {},
-        lualine_z = { '%{getcwd()}' },
-    },
+    tabline = {},
     sections = {
         lualine_a = { 'mode' },
         lualine_b = { 'branch', 'diff', 'diagnostics' },
         lualine_c = { 'filename' },
-        lualine_x = { },
-        lualine_y = {},
-        lualine_z = { 'filetype' },
+        lualine_x = {},
+        lualine_y = { require('auto-session-library').current_session_name },
+        lualine_z = { 'filetype' }
     },
     inactive_sections = {
         lualine_a = {},

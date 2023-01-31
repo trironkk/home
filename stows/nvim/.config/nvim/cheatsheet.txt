@@ -13,7 +13,7 @@ Code Action        | <leader>vca
 (i)Signature Help  | <C-h>
 
 ## Telescope
-Find project    | <leader>fp
+Find sessions   | <leader>fs
 Find vim config | <leader>fv
 Find files      | <leader>ff
 Find grep       | <leader>fg
