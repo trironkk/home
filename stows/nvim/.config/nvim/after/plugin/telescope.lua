@@ -8,8 +8,16 @@ vim.keymap.set('n', '<leader>fb', file_browser.file_browser, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 vim.keymap.set('n', '<leader>fs', ":SearchSession<CR>", {})
 vim.keymap.set('n', '<leader>fv',
-    function() return builtin.find_files({ find_command = { 'rg', '--files', '--iglob', '!.git', '--hidden',
-            vim.env.HOME .. '/.config/nvim' },
+    function() return builtin.find_files({
+            find_command = {
+                'rg',
+                '--files',
+                '--iglob',
+                '!.git',
+                '--hidden',
+                '-L',
+                vim.env.HOME .. '/.config/nvim'
+            },
         })
     end, {})
 

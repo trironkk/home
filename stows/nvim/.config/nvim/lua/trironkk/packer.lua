@@ -49,7 +49,7 @@ return require('packer').startup(function(use)
     use('tomasiser/vim-code-dark')
 
     -- use( 'sudormrfbin/cheatsheet.nvim' )
-    use('/home/trironkk/local/github.com/trironkk/cheatsheet.nvim')
+    use('trironkk/cheatsheet.nvim')
 
     use {
         'rmagatti/auto-session',

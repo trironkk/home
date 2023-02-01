@@ -43,12 +43,12 @@ stow:
 	cd stows/ && stow --target "${HOME}" *
 
 install-neovim:
-	mkdir "~/local/github.com/neovim/neovim"
-	git clone "https://github.com/neovim/neovim" "~/local/github.com/neovim/neovim"
-	cd "~/local/github.com/neovim/neovim"
+	mkdir "${HOME}/local/github.com/neovim/neovim"
+	git clone "https://github.com/neovim/neovim" "${HOME}/local/github.com/neovim/neovim"
+	cd "${HOME}/local/github.com/neovim/neovim"
 	make CMAKE_BUILD_TYPE=RelWithDebInfo
 	sudo make install
-	git clone --depth 1 "https://github.com/wbthomason/packer.nvim" "~/.local/share/nvim/site/pack/packer/start/packer.nvim"
+	git clone --depth 1 "https://github.com/wbthomason/packer.nvim" "${HOME}/local/share/nvim/site/pack/packer/start/packer.nvim"
 	# TODO: Trigger PackerSync.
 
 install-vim:

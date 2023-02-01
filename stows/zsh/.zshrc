@@ -3,6 +3,7 @@ export EDITOR=vim
 # export GOPATH="$HOME/local/go/packages"
 export PATH="$PATH:$GOPATH/bin:$GOROOT/bin"
 export PATH="$PATH:$HOME/.tools"
+export PATH="$PATH:/usr/local/bin"
 
 autoload -Uz add-zsh-hook
 
@@ -62,7 +63,7 @@ bindkey "^Z" Resume
 
 # Save and open current tmux pane.
 function SaveTmuxPane {
-  if [ "$TERM" != "screen" ] || [ -z "$TMUX" ]; then
+  if [ "$TERM" != "tmux-256color" ] || [ -z "$TMUX" ]; then
     echo "Must run within tmux session to save tmux pane."
     return
   fi
