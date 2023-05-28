@@ -43,7 +43,6 @@ stow:
 	cd stows/ && stow --target "${HOME}" *
 
 install-neovim:
-	mkdir "${HOME}/local/github.com/neovim/neovim"
 	git clone "https://github.com/neovim/neovim" "${HOME}/local/github.com/neovim/neovim"
 	cd "${HOME}/local/github.com/neovim/neovim"
 	make CMAKE_BUILD_TYPE=RelWithDebInfo
