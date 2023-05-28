@@ -87,5 +87,3 @@ bindkey "^\`" OpenVim
 
 # Google-specific configuration.
 [[ -f "$HOME/.google.zsh" ]] && source "$HOME/.google.zsh"
-
-export OPENAI_API_KEY=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
