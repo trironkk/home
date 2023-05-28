@@ -1,6 +1,8 @@
-require("packer")
+require("trironkk.remap")
+require("trironkk.packer")
 
 vim.opt.mouse = ""
+vim.opt.guicursor = ""
 
 vim.opt.number = true
 vim.opt.relativenumber = true
