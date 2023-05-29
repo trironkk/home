@@ -80,10 +80,14 @@ bindkey "^P" SaveTmuxPane
 
 # Open Vim (without polluting terminal output)
 function OpenVim {
-  nvim +RestoreSession
+  nvim
 }
 zle -N OpenVim
 bindkey "^\`" OpenVim
 
 # Google-specific configuration.
 [[ -f "$HOME/.google.zsh" ]] && source "$HOME/.google.zsh"
+
+# Secret configurations not to be source controlled.
+# OPENAI_API_KEY: https://platform.openai.com/account/api-keys
+[[ -f "$HOME/.secrets" ]] && source "$HOME/.secrets"

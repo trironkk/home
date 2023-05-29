@@ -84,6 +84,16 @@ _G.packer_plugins = {
     path = "/home/trironkk/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp",
     url = "https://github.com/hrsh7th/cmp-nvim-lsp"
   },
+  ["copilot.vim"] = {
+    loaded = true,
+    path = "/home/trironkk/.local/share/nvim/site/pack/packer/start/copilot.vim",
+    url = "https://github.com/github/copilot.vim"
+  },
+  ["formatter.nvim"] = {
+    loaded = true,
+    path = "/home/trironkk/.local/share/nvim/site/pack/packer/start/formatter.nvim",
+    url = "https://github.com/mhartington/formatter.nvim"
+  },
   harpoon = {
     loaded = true,
     path = "/home/trironkk/.local/share/nvim/site/pack/packer/start/harpoon",
@@ -129,11 +139,10 @@ _G.packer_plugins = {
     path = "/home/trironkk/.local/share/nvim/site/pack/packer/start/plenary.nvim",
     url = "https://github.com/nvim-lua/plenary.nvim"
   },
-  ["rose-pine"] = {
-    config = { "\27LJ\2\n9\0\0\3\0\3\0\0056\0\0\0009\0\1\0'\2\2\0B\0\2\1K\0\1\0\26colorscheme rose-pine\bcmd\bvim\0" },
+  ["seoul256.vim"] = {
     loaded = true,
-    path = "/home/trironkk/.local/share/nvim/site/pack/packer/start/rose-pine",
-    url = "https://github.com/rose-pine/neovim"
+    path = "/home/trironkk/.local/share/nvim/site/pack/packer/start/seoul256.vim",
+    url = "https://github.com/junegunn/seoul256.vim"
   },
   ["telescope-recent-files"] = {
     loaded = true,
@@ -149,14 +158,20 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/trironkk/.local/share/nvim/site/pack/packer/start/undotree",
     url = "https://github.com/mbbill/undotree"
+  },
+  ["vim-colors-github"] = {
+    loaded = true,
+    path = "/home/trironkk/.local/share/nvim/site/pack/packer/start/vim-colors-github",
+    url = "https://github.com/cormacrelf/vim-colors-github"
+  },
+  ["vim-fugitive"] = {
+    loaded = true,
+    path = "/home/trironkk/.local/share/nvim/site/pack/packer/start/vim-fugitive",
+    url = "https://github.com/tpope/vim-fugitive"
   }
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: rose-pine
-time([[Config for rose-pine]], true)
-try_loadstring("\27LJ\2\n9\0\0\3\0\3\0\0056\0\0\0009\0\1\0'\2\2\0B\0\2\1K\0\1\0\26colorscheme rose-pine\bcmd\bvim\0", "config", "rose-pine")
-time([[Config for rose-pine]], false)
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then

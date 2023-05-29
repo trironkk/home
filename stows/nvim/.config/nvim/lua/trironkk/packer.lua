@@ -15,13 +15,10 @@ startup_function = function(use)
   use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
   use("theprimeagen/harpoon")
 
-  use({
-      'rose-pine/neovim',
-      as = 'rose-pine',
-      config = function()
-          vim.cmd('colorscheme rose-pine')
-      end
-  })
+  use('tpope/vim-fugitive')
+
+  use('cormacrelf/vim-colors-github')
+  use('junegunn/seoul256.vim')
 
   use('mbbill/undotree')
 
@@ -45,6 +42,8 @@ startup_function = function(use)
       {'L3MON4D3/LuaSnip'},     -- Required
     }
   }
+  use('github/copilot.vim')
+  use('mhartington/formatter.nvim')
 end
 
 -- Automatically install packer

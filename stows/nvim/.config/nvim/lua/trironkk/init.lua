@@ -1,4 +1,3 @@
-require("trironkk.remap")
 require("trironkk.packer")
 
 vim.opt.mouse = ""
@@ -25,18 +24,4 @@ vim.opt.hlsearch = true
 vim.opt.incsearch = true
 
 vim.opt.scrolloff = 8
-vim.opt.signcolumn = "yes"
-vim.opt.isfname:append("@-@")
-
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
-vim.keymap.set("n", "<C-d>", "<C-d>zz")
-vim.keymap.set("n", "<C-u>", "<C-u>zz")
-vim.keymap.set("n", "n", "nzzzv")
-vim.keymap.set("n", "N", "Nzzzv")
-
-vim.keymap.set("n", "<leader>F", function()
-    vim.lsp.buf.format()
-end)
-
-vim.keymap.set("t", "<Esc>", "<C-\\><C-N>")
+vim.opt.signcolumn = "no"
