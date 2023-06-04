@@ -159,6 +159,11 @@ _G.packer_plugins = {
     path = "/home/trironkk/.local/share/nvim/site/pack/packer/start/undotree",
     url = "https://github.com/mbbill/undotree"
   },
+  ["vim-abolish"] = {
+    loaded = true,
+    path = "/home/trironkk/.local/share/nvim/site/pack/packer/start/vim-abolish",
+    url = "https://github.com/tpope/vim-abolish"
+  },
   ["vim-colors-github"] = {
     loaded = true,
     path = "/home/trironkk/.local/share/nvim/site/pack/packer/start/vim-colors-github",

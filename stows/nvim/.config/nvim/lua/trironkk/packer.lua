@@ -16,6 +16,7 @@ startup_function = function(use)
   use("theprimeagen/harpoon")
 
   use('tpope/vim-fugitive')
+  use('tpope/vim-abolish')
 
   use('cormacrelf/vim-colors-github')
   use('junegunn/seoul256.vim')
