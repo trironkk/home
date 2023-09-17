@@ -40,6 +40,8 @@ init:
 	        ripgrep
 
 stow:
+	# Create the parent directory so that other stows can manage files within it.
+	mkdir -p ls "${HOME}/.config/nvim/lua/trironkk/"
 	cd stows/ && stow --target "${HOME}" *
 
 install-neovim:
