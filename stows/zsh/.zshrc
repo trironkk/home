@@ -7,7 +7,15 @@ export PATH="$PATH:/usr/local/bin"
 
 autoload -Uz add-zsh-hook
 
+# Prompt.
+autoload -U colors && colors
+FG_COLOR=black
+BG_COLOR=green
+PROMPT="%{$fg[$FG_COLOR]%}%{$bg[$BG_COLOR]%}%n%{$reset_color%}@%{$fg[$FG_COLOR]%}%{$bg[$BG_COLOR]%}%m%{$reset_color%}:%{$fg[$FG_COLOR]%}%{$bg[$BG_COLOR]%}%~%{$reset_color%}
+$ "
+
 # History configuration.
+export HISTFILE="$HOME/.zsh_history"
 export HISTSIZE=1000000
 export SAVEHIST=1000000
 setopt append_history
@@ -25,13 +33,6 @@ export FZF_DEFAULT_OPTS="--bind alt-up:preview-page-up,alt-down:preview-page-dow
 
 bindkey '\eb' vi-backward-word
 bindkey '\ef' vi-forward-word
-
-# Prompt setup.
-export THEME_COLOR=green
-export FG_PROMPT_COLOR=black
-export BG_PROMPT_COLOR=$THEME_COLOR
-export PS1="%{$fg[$FG_PROMPT_COLOR]$bg[$BG_PROMPT_COLOR]%}%n$reset_color@$fg[$FG_PROMPT_COLOR]$bg[$BG_PROMPT_COLOR]$(hostname -f)$reset_color:$fg[$FG_PROMPT_COLOR]$bg[$BG_PROMPT_COLOR]%~/$reset_color
-$ "
 
 # Colorized man prompts.
 man() {
@@ -85,3 +86,8 @@ bindkey "^\`" OpenVim
 # OPENAI_API_KEY: https://platform.openai.com/account/api-keys
 # GOOGLE_API_KEY: https://console.cloud.google.com/apis/credentials/key/01cbe6c1-81f8-446a-bfe7-e112fb77dc18
 [[ -f "$HOME/.secrets" ]] && source "$HOME/.secrets"
+
+# Plugins.
+source ~/.zpm/zpm.zsh
+zpm load jeffreytse/zsh-vi-mode
+zpm load zsh-users/zsh-syntax-highlighting

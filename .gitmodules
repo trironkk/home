@@ -4,3 +4,6 @@
 [submodule "stows/tmux/.tmux/plugins/tpm"]
 	path = stows/tmux/.tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
+[submodule "stows/zsh/.zpm"]
+	path = stows/zsh/.zpm
+	url = https://github.com/zpm-zsh/zpm
