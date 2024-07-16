@@ -23,13 +23,6 @@ export FZF_CTRL_T_OPTS="--ansi --preview-window 'right:60%' --preview 'batcat --
 export FZF_DEFAULT_OPTS="--bind alt-up:preview-page-up,alt-down:preview-page-down"
 [[ -f "$HOME/.fzf.zsh" ]] && source "$HOME/.fzf.zsh"
 
-# Oh My Zsh configuration.
-HIST_STAMPS="mm/dd/yyyy"
-ZSH="$HOME/.oh-my-zsh"
-ZSH_THEME="simple"
-plugins=(git fzf)
-source $ZSH/oh-my-zsh.sh
-
 bindkey '\eb' vi-backward-word
 bindkey '\ef' vi-forward-word
 

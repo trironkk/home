@@ -40,6 +40,7 @@ init:
 	        ripgrep
 
 stow:
+	mkdir -p "${HOME}/.tmux/plugins"
 	cd stows/ && stow --target "${HOME}" *
 
 install-neovim:
