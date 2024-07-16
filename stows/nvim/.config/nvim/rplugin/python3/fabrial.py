@@ -1,1 +1,0 @@
-/home/trironkk/local/github.com/trironkk/shadesmar/project_2/main.py
