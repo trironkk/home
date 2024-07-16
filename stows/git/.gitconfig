@@ -12,3 +12,5 @@
 	diff = false
 	log = false
 	status = false
+[init]
+	defaultBranch = main

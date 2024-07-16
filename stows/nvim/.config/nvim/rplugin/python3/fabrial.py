@@ -1,1 +1,1 @@
-/home/trironkk/local/github.com/trironkk/shadesmar/project_2/fabrial.py
+/home/trironkk/local/github.com/trironkk/shadesmar/project_2/main.py

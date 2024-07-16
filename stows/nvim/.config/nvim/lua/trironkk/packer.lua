@@ -43,7 +43,6 @@ startup_function = function(use)
       {'L3MON4D3/LuaSnip'},     -- Required
     }
   }
-  use('github/copilot.vim')
   use('mhartington/formatter.nvim')
 end
 
