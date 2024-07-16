@@ -2,4 +2,5 @@
 stows/vim/.vim
 stows/nvim/.config/nvim/.netrwhist
 stows/nvim/.config/nvim/plugin/packer_compiled.lua
+stows/nvim/.config/nvim/lazy-lock.json
 .secrets
