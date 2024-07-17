@@ -16,6 +16,7 @@ init:
 	        gettext \
 	        git \
 	        htop \
+	        fzf \
 	        jq \
 	        libevent-dev \
 	        libltdl7 \
@@ -47,9 +48,6 @@ install-neovim:
 	NEOVIM_VERSION=v0.10.0
 	git clone --depth 1 --branch "v0.10.0" "https://github.com/neovim/neovim" "${HOME}/local/github.com/neovim/neovim"
 	cd "${HOME}/local/github.com/neovim/neovim" && make CMAKE_BUILD_TYPE=RelWithDebInfo && sudo make install
-
-install-fzf:
-	"${HOME}/.fzf/install" --bin
 
 default-shell:
 	sudo chsh -s "$(shell which zsh)" "${USER}"
