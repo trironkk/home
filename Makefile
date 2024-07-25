@@ -1,4 +1,4 @@
-all: init stow install-fzf install-neovim
+all: init stow install-neovim
 
 init:
 	sudo apt update \
