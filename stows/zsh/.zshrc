@@ -29,7 +29,9 @@ export FZF_BASE="$USER/.fzf"
 export FZF_CTRL_T_COMMAND="rg --no-ignore '' -l"
 export FZF_CTRL_T_OPTS="--ansi --preview-window 'right:60%' --preview 'batcat --color=always --style=plain --line-range :300 {}'"
 export FZF_DEFAULT_OPTS="--bind alt-up:preview-page-up,alt-down:preview-page-down"
-[[ -f "$HOME/.fzf.zsh" ]] && source "$HOME/.fzf.zsh"
+source /usr/share/doc/fzf/examples/key-bindings.zsh
+source /usr/share/doc/fzf/examples/completion.zsh
+
 
 bindkey '\eb' vi-backward-word
 bindkey '\ef' vi-forward-word
