@@ -98,11 +98,8 @@ vim.g.have_nerd_font = true
 -- NOTE: You can change these options as you wish!
 --  For more options, you can see `:help option-list`
 
--- Make line numbers default
-vim.opt.number = true
--- You can also add relative line numbers, to help with jumping.
---  Experiment for yourself to see if you like it!
--- vim.opt.relativenumber = true
+-- Make relative line numbers default
+vim.opt.relativenumber = true
 
 -- Disable mouse mode.
 vim.opt.mouse = ""
@@ -916,3 +913,30 @@ require("lazy").setup({
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+
+function toggle_raw_view()
+	if vim.o.relativenumber then
+		-- Disable line numbers and other gutters
+		vim.notify("hello!")
+		vim.o.relativenumber = false
+		vim.o.number = false
+		vim.o.wrap = true
+		vim.o.list = false
+		vim.o.signcolumn = no
+		vim.diagnostic.disable()
+		vim.diagnostic.hide()
+		vim.cmd("Gitsigns detach")
+	else
+		-- Enable line numbers and other gutters
+		vim.notify("world!")
+		vim.o.relativenumber = true
+		vim.o.number = true
+		vim.o.wrap = false
+		vim.o.list = true
+		vim.o.signcolumn = yes
+		vim.diagnostic.enable()
+		vim.diagnostic.show()
+		vim.cmd("Gitsigns attach")
+	end
+end
+vim.api.nvim_set_keymap("n", "<F3>", ":lua toggle_raw_view()<CR>", { silent = true, noremap = true })

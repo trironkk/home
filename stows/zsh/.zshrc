@@ -1,3 +1,6 @@
+autoload -U select-word-style
+select-word-style bash
+
 export EDITOR=vim
 # export GOROOT="$HOME/local/go/golang"
 # export GOPATH="$HOME/local/go/packages"
