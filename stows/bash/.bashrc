@@ -3,7 +3,6 @@ export THEME_COLOR=green
 export PS1="${debian_chroot:+($debian_chroot)}\u@$(hostname -f):\w\$ "
 
 source /usr/share/doc/fzf/examples/key-bindings.bash
-source /usr/share/doc/fzf/examples/completion.bash
 
 [[ -f "$HOME/.google.bash" ]] && source "$HOME/.google.bash"
 
