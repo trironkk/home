@@ -26,6 +26,8 @@ setopt extended_history
 setopt hist_ignore_dups
 zshaddhistory() { print -sr "${(z)1%%$'\n'}"; return 1 }
 
+setopt interactivecomments
+
 # FZF configuration.
 export FZF_TMUX=1
 export FZF_BASE="$USER/.fzf"

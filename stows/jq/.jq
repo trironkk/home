@@ -25,3 +25,15 @@ def explore:
       ]
     | join(": ")
   ;
+
+
+# Converts a number to a string with commas separating every 3 digits.
+def format_number_commas:
+  tostring
+  | [
+      while(length > 0; .[:-3])
+      | .[-3:]
+    ]
+  | reverse
+  | join(",")
+  ;
