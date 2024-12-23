@@ -42,6 +42,7 @@ init:
 
 stow:
 	mkdir -p "${HOME}/.tmux/plugins"
+	mkdir -p "${HOME}/.config/nvim/lua/trironkk/plugins"
 	cd stows/ && stow --target "${HOME}" *
 
 install-neovim:
