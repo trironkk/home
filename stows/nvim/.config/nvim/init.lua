@@ -9,7 +9,7 @@ require("trironkk.autocmds")
 require("trironkk.lazy-bootstrap")
 require("lazy").setup("trironkk.plugins")
 
-require("trironkk.google")
+-- require("trironkk.google")
 
 function toggle_raw_view()
 	if vim.o.relativenumber then
@@ -32,4 +32,5 @@ function toggle_raw_view()
 		vim.diagnostic.show()
 	end
 end
+
 vim.api.nvim_set_keymap("n", "<F3>", ":lua toggle_raw_view()<CR>", { silent = true, noremap = true })
