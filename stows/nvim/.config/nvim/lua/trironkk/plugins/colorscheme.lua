@@ -1,8 +1,11 @@
 return {
- 		"catppuccin/nvim",
- 		priority = 1000,
- 		init = function()
- 			vim.cmd.colorscheme("catppuccin-mocha")
- 			vim.cmd.hi("Comment gui=none")
- 		end,
- 	}
+	"catppuccin/nvim",
+	priority = 1000,
+	init = function()
+		vim.cmd.colorscheme("catppuccin-mocha")
+	end,
+	transparent_background = true,
+	float = {
+		transparent = true,
+	},
+}

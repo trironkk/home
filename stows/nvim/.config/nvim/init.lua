@@ -9,7 +9,7 @@ require("trironkk.autocmds")
 require("trironkk.lazy-bootstrap")
 require("lazy").setup("trironkk.plugins")
 
--- require("trironkk.google")
+require("trironkk.google")
 
 function toggle_raw_view()
 	if vim.o.relativenumber then

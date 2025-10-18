@@ -13,7 +13,6 @@ return {
 		-- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
 		-- used for completion, annotations and signatures of Neovim apis
 		{ "folke/neodev.nvim",       opts = {} },
-		{ 'saghen/blink.cmp' },
 	},
 	config = function()
 		vim.api.nvim_create_autocmd("LspAttach", {
@@ -65,6 +64,7 @@ return {
 				-- Rename the variable under your cursor.
 				--  Most Language Servers support renaming across files, etc.
 				map("n", "<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
+
 
 				-- Execute a code action, usually your cursor needs to be on top of an error
 				-- or a suggestion from your LSP for this to activate.
@@ -135,26 +135,17 @@ return {
 		--  You can press `g?` for help in this menu.
 		require("mason").setup()
 
-
-		-- You can add other tools here that you want Mason to install
-		-- for you, so that they are available from within Neovim.
-		local ensure_installed = vim.tbl_keys(servers or {})
-		vim.list_extend(ensure_installed, {
-			"stylua", -- Used to format Lua code
+		require("mason-tool-installer").setup({
+			ensure_installed = {
+				"stylua", -- Used to format Lua code
+			}
 		})
-
-		local blink_capabilities = require('blink.cmp').get_lsp_capabilities()
-
-		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 		require("mason-lspconfig").setup({
 			handlers = {
-				lua_ls = function()
-					require("lspconfig").lua_ls.setup({
-						capabilities = blink_capabilities
-					})
-				end,
-				function()
-					require("trironkk.google")
+				function(server_name)
+					require('lspconfig')[server_name].setup(opts or {})
+
+					require("trironkk.google").setup_lsp_for_server(server_name, opts)
 				end,
 			},
 		})

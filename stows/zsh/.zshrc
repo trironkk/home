@@ -1,5 +1,7 @@
 autoload -U select-word-style
 select-word-style bash
+autoload -U compinit
+compinit
 
 export EDITOR=vim
 # export GOROOT="$HOME/local/go/golang"
@@ -7,6 +9,8 @@ export EDITOR=vim
 export PATH="$PATH:$GOPATH/bin:$GOROOT/bin"
 export PATH="$PATH:$HOME/.tools"
 export PATH="$PATH:/usr/local/bin"
+export PATH="$PATH:$HOME/.local/share/sf/bin"
+export PATH="$PATH:$HOME/.npm-global/bin"
 
 autoload -Uz add-zsh-hook
 
@@ -14,6 +18,7 @@ autoload -Uz add-zsh-hook
 autoload -U colors && colors
 FG_COLOR=black
 BG_COLOR=green
+PROMPT_COMMAND="set_tmux_ps1_bg;$PROMPT_COMMAND"
 PROMPT="%{$fg[$FG_COLOR]%}%{$bg[$BG_COLOR]%}%n%{$reset_color%}@%{$fg[$FG_COLOR]%}%{$bg[$BG_COLOR]%}%m%{$reset_color%}:%{$fg[$FG_COLOR]%}%{$bg[$BG_COLOR]%}%~%{$reset_color%}
 $ "
 
@@ -93,8 +98,3 @@ bindkey "^\`" OpenVim
 # OPENAI_API_KEY: https://platform.openai.com/account/api-keys
 # GOOGLE_API_KEY: https://console.cloud.google.com/apis/credentials/key/01cbe6c1-81f8-446a-bfe7-e112fb77dc18
 [[ -f "$HOME/.secrets" ]] && source "$HOME/.secrets"
-
-# Plugins.
-source ~/.zpm/zpm.zsh
-zpm load jeffreytse/zsh-vi-mode
-zpm load zsh-users/zsh-syntax-highlighting
