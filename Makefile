@@ -46,8 +46,8 @@ stow:
 	cd stows/ && stow --target "${HOME}" *
 
 install-neovim:
-	NEOVIM_VERSION=v0.10.0
-	git clone --depth 1 --branch "v0.10.0" "https://github.com/neovim/neovim" "${HOME}/local/github.com/neovim/neovim"
+	# v0.12.0-dev-1467+g671841673e
+	git clone --depth 1 --branch "nightly" "https://github.com/neovim/neovim" "${HOME}/local/github.com/neovim/neovim"
 	cd "${HOME}/local/github.com/neovim/neovim" && make CMAKE_BUILD_TYPE=RelWithDebInfo && sudo make install
 
 default-shell:
