@@ -1,4 +1,5 @@
 alias vim=nvim
+alias vimdiff='nvim -d'
 
 [[ -f "$HOME/.google.bash_profile" ]] && source "$HOME/.google.bash_profile"
 

@@ -5,7 +5,10 @@ local miniclue = require('mini.clue')
 miniclue.setup({
   window = {
     -- Floating window config
-    config = {},
+    config = {
+	    border = 'double',
+	    width = 100,
+    },
 
     -- Delay before showing clue window
     delay = 200,
@@ -56,5 +59,7 @@ miniclue.setup({
     miniclue.gen_clues.windows(),
     miniclue.gen_clues.z(),
     { mode = 'n', keys = '<Leader>f', desc = '[F]ind...' },
+    { mode = 'n', keys = '<Leader>s', desc = '[S]ource...' },
+    { mode = 'n', keys = '<Leader>?', desc = '[?] Explore keymaps' },
   },
 })
