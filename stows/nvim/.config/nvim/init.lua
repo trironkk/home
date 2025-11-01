@@ -16,7 +16,7 @@ end, {})
 
 vim.keymap.set('n', '<leader>sv', ':ReloadMyConfig<CR>', { desc = "[S]ource [V]im config" })
 
-function toggle_raw_view()
+local function toggle_raw_view()
 	if vim.o.relativenumber then
 		-- Disable line numbers and other gutters
 		vim.opt.relativenumber = false
@@ -40,7 +40,25 @@ function toggle_raw_view()
 		vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 	end
 end
-vim.keymap.set("n", "<F3>", ":lua toggle_raw_view()<CR>", { silent = true, noremap = true, desc = "Toggle Raw View"})
+vim.keymap.set("n", "<F3>", toggle_raw_view, { silent = true, noremap = true, desc = "Toggle Raw View"})
+
+local function toggle_showcase_view()
+	local minianimate = require("mini.animate")
+	local screenkey = require("screenkey")
+	local smear_cursor = require("smear_cursor")
+	if minianimate.is_active then
+		-- Disable animations
+		vim.g.minianimate_disable = true
+		screenkey.toggle(false)
+		smear_cursor.enabled = false
+	else
+		-- Enable animations
+		vim.g.minianimate_disable = false
+		screenkey.toggle(true)
+		smear_cursor.enabled = true
+	end
+end
+vim.keymap.set("n", "<F12>", toggle_showcase_view, { silent = true, noremap = true, desc = "Toggle Showcase View"})
 
 -- Highlight when yanking text
 vim.api.nvim_create_autocmd("TextYankPost", {
@@ -51,18 +69,20 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
+require("trironkk.google")
+require("trironkk.opt")
+
 require("trironkk.plugins.blink")
 require("trironkk.plugins.oil")
-require("trironkk.plugins.smear_cursor")
-require("trironkk.plugins.mini_icons")
+require("trironkk.plugins.mini_animate")
 require("trironkk.plugins.mini_clue")
+require("trironkk.plugins.mini_diff")
+require("trironkk.plugins.mini_icons")
 require("trironkk.plugins.mini_pick")
 require("trironkk.plugins.tokyonight")
 require("trironkk.plugins.treesitter")
-require("trironkk.plugins.showkeys")
-
-require("trironkk.opt")
-require("trironkk.google")
+require("trironkk.plugins.screenkey")
+require("trironkk.plugins.smear_cursor")
 
 vim.pack.add {
 	{ src = 'https://github.com/neovim/nvim-lspconfig' },
@@ -108,37 +128,3 @@ vim.diagnostic.config({
     end,
   },
 })
-
-vim.pack.add({
-	{ src = "https://github.com/nvim-mini/mini.diff" },
-})
-require("mini.diff").setup({
-	-- Options for how hunks are visualized
-	view = {
-		-- Visualization style. Possible values are 'sign' and 'number'.
-		-- Default: 'number' if line numbers are enabled, 'sign' otherwise.
-		style = vim.go.number and 'number' or 'sign',
-
-		-- Signs used for hunks with 'sign' view
-		signs = { add = '▒', change = '▒', delete = '▒' },
-
-		-- Priority of used visualization extmarks
-		priority = 199,
-	},
-	-- Various options
-	options = {
-		-- Diff algorithm. See `:h vim.diff()`.
-		algorithm = 'histogram',
-
-		-- Whether to use "indent heuristic". See `:h vim.diff()`.
-		indent_heuristic = true,
-
-		-- The amount of second-stage diff to align lines
-		linematch = 60,
-
-		-- Whether to wrap around edges during hunk navigation
-		wrap_goto = false,
-	},
-})
-vim.keymap.set('n', '<F10>', ':lua MiniDiff.toggle()<CR>', { desc = "Toggle MiniDiff" })
-vim.keymap.set('n', '<F11>', ':lua MiniDiff.toggle_overlay()<CR>', { desc = "Toggle MiniDiff Overlay" })
