@@ -69,7 +69,13 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
-require("trironkk.google")
+local success, _ = pcall(require, "trironkk.google")
+if success == false then
+	vim.notify_once(
+		"Warning: Could not load 'trironkk.google'.",
+		vim.log.levels.INFO, { title = "Neovim Config Load" })
+end
+
 require("trironkk.opt")
 
 require("trironkk.plugins.blink")

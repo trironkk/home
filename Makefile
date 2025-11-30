@@ -50,6 +50,9 @@ install-neovim:
 	git clone --depth 1 --branch "nightly" "https://github.com/neovim/neovim" "${HOME}/local/github.com/neovim/neovim"
 	cd "${HOME}/local/github.com/neovim/neovim" && make CMAKE_BUILD_TYPE=RelWithDebInfo && sudo make install
 
+generate-ssh-key:
+	ssh-keygen -t rsa -b 4096 -C "trironk@gmail.com"
+
 default-shell:
 	sudo chsh -s "$(shell which zsh)" "${USER}"
 
