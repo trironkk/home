@@ -93,8 +93,3 @@ bindkey "^\`" OpenVim
 
 # Google-specific configuration.
 [[ -f "$HOME/.google.zsh" ]] && source "$HOME/.google.zsh"
-
-# Secret configurations not to be source controlled.
-# OPENAI_API_KEY: https://platform.openai.com/account/api-keys
-# GOOGLE_API_KEY: https://console.cloud.google.com/apis/credentials/key/01cbe6c1-81f8-446a-bfe7-e112fb77dc18
-[[ -f "$HOME/.secrets" ]] && source "$HOME/.secrets"
