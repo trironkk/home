@@ -60,6 +60,7 @@ miniclue.setup({
     miniclue.gen_clues.z(),
     { mode = 'n', keys = '<Leader>f', desc = '[F]ind...' },
     { mode = 'n', keys = '<Leader>s', desc = '[S]ource...' },
+    { mode = 'n', keys = '<Leader>l', desc = '[L]sp...' },
     { mode = 'n', keys = '<Leader>?', desc = '[?] Explore keymaps' },
   },
 })

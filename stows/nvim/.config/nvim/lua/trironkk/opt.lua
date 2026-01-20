@@ -16,3 +16,5 @@ vim.opt.scrolloff = 10
 vim.opt.wrap = false
 vim.opt.hlsearch = true
 vim.opt.winborder = 'rounded'
+
+vim.g.minianimate_disable = true

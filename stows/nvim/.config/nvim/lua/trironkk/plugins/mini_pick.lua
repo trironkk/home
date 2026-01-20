@@ -111,7 +111,7 @@ vim.keymap.set("n", "<leader>ff", function()
 		command = { "rg", "--files", "--follow", vim.fn.fnamemodify(get_current_buffer_dir(), ":.") },
 	}
 	)
-end, { desc = "Find [F]iles in parent directory" })
+end, { desc = "[F]ind [F]iles in parent directory" })
 
 -- Find vim configs
 vim.keymap.set("n", "<leader>fv", function()
@@ -119,7 +119,17 @@ vim.keymap.set("n", "<leader>fv", function()
 		command = { "rg", "--files", "--follow", vim.fs.dirname(vim.env.MYVIMRC) },
 	}
 	)
-end, { desc = "Find [V]im config files" })
+end, { desc = "[F]ind [V]im config files" })
+
+-- Find recent files
+vim.keymap.set("n", "<leader>fr", function()
+	require("mini.pick").start({
+		source = {
+			items = vim.v.oldfiles,
+			name = "Recent Files",
+		}
+	})
+end, { desc = "[F]ind [R]ecent files" })
 
 -- Find keymaps
 local function get_all_keymaps_source()

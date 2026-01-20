@@ -73,7 +73,8 @@ local success, _ = pcall(require, "trironkk.google")
 if success == false then
 	vim.notify_once(
 		"Warning: Could not load 'trironkk.google'.",
-		vim.log.levels.INFO, { title = "Neovim Config Load" })
+		vim.log.levels.INFO,
+		{ title = "Neovim Config Load" })
 end
 
 require("trironkk.opt")
@@ -95,6 +96,7 @@ vim.pack.add {
 	{ src = 'https://github.com/mason-org/mason.nvim' },
 	{ src = 'https://github.com/mason-org/mason-lspconfig.nvim' },
 	{ src = 'https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim' },
+	{ src = 'https://github.com/folke/lazydev.nvim' },
 }
 
 require('mason').setup()
@@ -103,27 +105,52 @@ require('mason-tool-installer').setup({
 	ensure_installed = {
 		"lua_ls",
 		"stylua",
+		"kotlin_language_server",
 	}
 })
 
-vim.lsp.config('lua_ls', {
+require('lspconfig').lua_ls.setup({
+	on_attach = on_attach,
 	settings = {
 		Lua = {
-			runtime = {
-				version = 'LuaJIT',
-			},
 			diagnostics = {
 				globals = {
+					"vim"
 				},
 			},
 			workspace = {
 				library = vim.api.nvim_get_runtime_file("", true),
+				checkThirdParty = false,
 			},
-			telemetry = {
-				enable = false,
+			telemetry = { enable = false },
+			hover = {
+				expandAlias = true,
+				previewLines = 20,
 			},
 		},
-	},
+	}
+})
+require('lspconfig').kotlin_language_server.setup({
+	on_attach = on_attach,
+	root_dir = require 'lspconfig'.util.root_pattern(".git"),
+	on_init = function(client)
+		local root = client.config.root_dir
+		if root then
+			-- Tell KLS to use the gradlew file found at the root
+			client.config.settings.kotlin = {
+				gradle = {
+					enabled = true,
+					-- This dynamically points KLS to the project's own wrapper
+					gradlePath = root .. "/gradlew"
+				},
+				externalDestinations = {
+					enabled = true -- Helps with resolving libraries/URIs outside the immediate src folder
+				},
+			}
+			client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
+		end
+		return true
+	end,
 })
 
 vim.diagnostic.config({
@@ -134,3 +161,13 @@ vim.diagnostic.config({
     end,
   },
 })
+
+
+vim.keymap.set({'n', 'v'}, '<leader>lf', function()
+    vim.lsp.buf.format({ async = true })
+end, { desc = '[L]sp [F]ormat' })
+
+vim.keymap.set('n', '<leader>ld', function()
+    vim.diagnostic.open_float(nil, { scope = "cursor" })
+end, { desc = '[L]sp [D]iagnostics' })
+vim.keymap.set('n', 'K', vim.lsp.buf.hover, { desc = 'LSP: Hover Documentation' })
