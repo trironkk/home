@@ -48,12 +48,16 @@ local function toggle_showcase_view()
 	if minianimate.is_active then
 		-- Disable animations
 		vim.g.minianimate_disable = true
-		screenkey.toggle(false)
+		if screenkey.is_active() then
+			screenkey.toggle()
+		end
 		smear_cursor.enabled = false
 	else
 		-- Enable animations
 		vim.g.minianimate_disable = false
-		screenkey.toggle(true)
+		if not screenkey.is_active() then
+			screenkey.toggle()
+		end
 		smear_cursor.enabled = true
 	end
 end
@@ -75,10 +79,6 @@ if success == false then
 end
 
 require("trironkk.opt")
-
-vim.lsp.config("kotlin_language_server", { enabled = false })
-vim.g.lspconfig_manual_setup = 1
-
 require("trironkk.plugins.blink")
 require("trironkk.plugins.oil")
 require("trironkk.plugins.mini_animate")
@@ -94,54 +94,34 @@ require("trironkk.plugins.smear_cursor")
 vim.pack.add({
 	{ src = "https://github.com/neovim/nvim-lspconfig" },
 	{ src = "https://github.com/mason-org/mason.nvim" },
-	{ src = "https://github.com/mason-org/mason-lspconfig.nvim" },
 	{ src = "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim" },
 	{ src = "https://github.com/folke/lazydev.nvim" },
 	{ src = "https://github.com/j-hui/fidget.nvim" },
 })
 
 require("mason").setup()
-require("mason-lspconfig").setup({
-	handlers = {
-		function(server_name)
-			-- Default handler for all other servers
-			require("lspconfig")[server_name].setup({ on_attach = on_attach })
-		end,
-		["kotlin_language_server"] = function()
-			-- Do NOTHING here. This prevents the default lspconfig
-			-- script from running for Kotlin.
-		end,
-	},
-})
 require("mason-tool-installer").setup({
 	ensure_installed = {
-		"lua_ls",
-		"stylua",
-		"kotlin_language_server",
+		"lua-language-server",
+		"kotlin-language-server",
 	},
 })
-
+require("lazydev").setup({
+	library = {
+		-- Load luvit types when the `vim.uv` word is found
+		{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
+	},
+})
 require("fidget").setup({})
 
 local on_attach = function(client, bufnr)
-	-- 1. Helper for cleaner keymap definitions
-	local function buf_set_keymap(...)
-		vim.api.nvim_buf_set_keymap(bufnr, ...)
-	end
-	local opts = { noremap = true, silent = true }
-
-	-- 2. Standard LSP Keymaps
-	-- Jumping to definition/references
 	vim.keymap.set("n", "gd", vim.lsp.buf.definition, { buffer = bufnr, desc = "Go to Definition" })
 	vim.keymap.set("n", "gr", vim.lsp.buf.references, { buffer = bufnr, desc = "Go to References" })
 	vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = bufnr, desc = "Hover Documentation" })
 
-	-- Actions
-	vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { buffer = bufnr, desc = "Rename Symbol" })
-	vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { buffer = bufnr, desc = "Code Action" })
+	vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename, { buffer = bufnr, desc = "[L]sp [R]ename" })
+	vim.keymap.set("n", "<leader>lca", vim.lsp.buf.code_action, { buffer = bufnr, desc = "[L]sp [C]ode [A]ction" })
 
-	-- 3. Document Highlighting (Optional)
-	-- Highlights the symbol under the cursor
 	if client.server_capabilities.documentHighlightProvider then
 		vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
 			buffer = bufnr,
@@ -152,31 +132,21 @@ local on_attach = function(client, bufnr)
 			callback = vim.lsp.buf.clear_references,
 		})
 	end
-
-	-- 4. Format on Save (Optional)
-	if client.server_capabilities.documentFormattingProvider then
-		vim.api.nvim_create_autocmd("BufWritePre", {
-			buffer = bufnr,
-			callback = function()
-				vim.lsp.buf.format({ bufnr = bufnr })
-			end,
-		})
-	end
 end
 
-require("lspconfig").lua_ls.setup({
+vim.lsp.config("lua_ls", {
 	on_attach = on_attach,
+	capabilities = require('blink.cmp').get_lsp_capabilities(),
+	filetypes = { "lua" },
 	settings = {
 		Lua = {
 			diagnostics = {
-				globals = {
-					"vim",
-				},
+				globals = { "vim" },
 			},
 			workspace = {
 				ignoreDir = { "undo", "spell", "backups", ".git" },
-				library = { vim.env.VIMRUNTIME .. "/lua" },
 				checkThirdParty = false,
+				library = { vim.env.VIMRUNTIME .. "/lua" },
 			},
 			telemetry = { enable = false },
 			hover = {
@@ -186,39 +156,30 @@ require("lspconfig").lua_ls.setup({
 		},
 	},
 })
-require("lspconfig").kotlin_language_server.setup({
+vim.lsp.config("kotlin_language_server", {
 	on_attach = on_attach,
-	root_dir = require("lspconfig").util.root_pattern(
-		"settings.gradle.kts",
-		"settings.gradle",
-		"build.gradle.kts",
-		"build.gradle",
-		".git"
-	),
-	on_init = function(client)
-		local root = client.config.root_dir
-		if root then
-			-- Tell KLS to use the gradlew file found at the root
-			client.config.settings.kotlin = {
-				gradle = {
-					enabled = true,
-					-- This dynamically points KLS to the project's own wrapper
-					gradlePath = root .. "/gradlew",
-				},
-				externalDestinations = {
-					enabled = true, -- Helps with resolving libraries/URIs outside the immediate src folder
-				},
-			}
-			client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
-		end
-		return true
-	end,
+	capabilities = require('blink.cmp').get_lsp_capabilities(),
+	root_markers = { ".git", "settings.gradle", "settings.gradle.kts", "build.gradle", "build.gradle.kts", "pom.xml" },
+	settings = {
+		kotlin = {
+			gradle = {
+				enabled = true,
+			},
+			externalDestinations = { enabled = true },
+			downloadSources = true,
+			updateCheck = { enabled = true },
+		},
+	},
 	init_options = {
 		storagePath = vim.fn.stdpath("cache") .. "/kotlin_lsp",
-		-- Force the server to handle build scripts
 		includeScripts = true,
+		autoIndex = true,
 	},
 })
+
+vim.lsp.enable("kotlin_language_server")
+
+vim.lsp.enable({ "lua_ls", "kotlin_language_server" })
 
 vim.diagnostic.config({
 	virtual_text = {
@@ -247,3 +208,14 @@ vim.keymap.set("n", "<leader>li", function()
 	-- Open a fresh copy
 	vim.cmd("LspInfo")
 end, { desc = "[L]sp [I]nfo" })
+vim.keymap.set("n", "<leader>ll", function()
+	-- Close open :LspLog buffers before opening a new one.
+	for _, win in ipairs(vim.api.nvim_list_wins()) do
+		local buf = vim.api.nvim_win_get_buf(win)
+		if vim.bo[buf].filetype == "lsplog" then
+			vim.api.nvim_win_close(win, true)
+		end
+	end
+	-- Open a fresh copy
+	vim.cmd("LspLog")
+end, { desc = "[L]sp [L]og" })

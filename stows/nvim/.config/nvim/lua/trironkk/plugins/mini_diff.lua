@@ -36,5 +36,5 @@ minidiff.setup({
 	},
 })
 
-vim.keymap.set('n', '<F10>', ':lua MiniDiff.toggle()<CR>', { desc = "Toggle MiniDiff" })
-vim.keymap.set('n', '<F11>', ':lua MiniDiff.toggle_overlay()<CR>', { desc = "Toggle MiniDiff Overlay" })
+vim.keymap.set('n', '<leader><F10>', ':lua MiniDiff.toggle()<CR>', { desc = "Toggle MiniDiff" })
+vim.keymap.set('n', '<leader><F11>', ':lua MiniDiff.toggle_overlay()<CR>', { desc = "Toggle MiniDiff Overlay" })
