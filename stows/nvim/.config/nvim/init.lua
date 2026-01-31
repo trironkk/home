@@ -177,9 +177,10 @@ vim.lsp.config("kotlin_language_server", {
 	},
 })
 
-vim.lsp.enable("kotlin_language_server")
-
-vim.lsp.enable({ "lua_ls", "kotlin_language_server" })
+vim.lsp.enable({
+	"lua_ls",
+	"kotlin_language_server",
+})
 
 vim.diagnostic.config({
 	virtual_text = {
@@ -188,11 +189,13 @@ vim.diagnostic.config({
 			return string.format([[ %s: %s ]], diagnostic.source, diagnostic.message)
 		end,
 	},
+	float = {
+		border = "rounded",
+		source = "always",
+		header = "",
+		prefix = "● ",
+	},
 })
-
-vim.keymap.set({ "n", "v" }, "<leader>lf", function()
-	vim.lsp.buf.format({ async = true })
-end, { desc = "[L]sp [F]ormat" })
 
 vim.keymap.set("n", "<leader>ld", function()
 	vim.diagnostic.open_float(nil, { scope = "cursor" })
@@ -219,3 +222,13 @@ vim.keymap.set("n", "<leader>ll", function()
 	-- Open a fresh copy
 	vim.cmd("LspLog")
 end, { desc = "[L]sp [L]og" })
+
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "markdown",
+	callback = function()
+		vim.opt_local.formatprg = "mdformat --wrap 100 -"
+		vim.opt_local.textwidth = 100
+		vim.bo.formatexpr = ""
+	end,
+})
