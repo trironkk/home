@@ -11,4 +11,5 @@ export PATH=$PATH:$GOPATH
 # OPENAI_API_KEY: https://platform.openai.com/account/api-keys
 # GOOGLE_API_KEY: https://console.cloud.google.com/apis/credentials/key/01cbe6c1-81f8-446a-bfe7-e112fb77dc18
 # GEMINI_API_KEY: https://aistudio.google.com/api-keys
+# ANTHROPIC_API_KEY: https://platform.claude.com/settings/keys
 [[ -f "$HOME/.secrets" ]] && source "$HOME/.secrets"

@@ -1,0 +1,120 @@
+# hist-clean — interactively select and remove commands from history via fzf.
+# Requires zsh or bash + fzf.
+
+hist-clean() {
+  if ! command -v fzf >/dev/null 2>&1; then
+    echo "hist-clean: fzf is required but not found" >&2
+    return 1
+  fi
+
+  # Save current session history to HISTFILE.
+  fc -W
+
+  local histfile="${HISTFILE:-$HOME/.history}"
+  if [[ ! -f "$histfile" ]]; then
+    echo "hist-clean: HISTFILE not found: $histfile" >&2
+    return 1
+  fi
+
+  # Extract commands, stripping zsh extended_history timestamps.
+  local commands
+  if [[ -n "$ZSH_VERSION" ]]; then
+    # Strip ": epoch:elapsed;" prefix, skip continuation lines for display.
+    commands=$(sed -n 's/^: [0-9]*:[0-9]*;//p' "$histfile")
+  else
+    commands=$(cat "$histfile")
+  fi
+
+  # Show unique commands sorted by most recent occurrence (last occurrence wins).
+  # Use awk to deduplicate keeping the last occurrence, then reverse for most-recent-first.
+  local selected
+  selected=$(echo "$commands" | awk '{ lines[NR]=$0; last[$0]=NR } END { for(i=NR;i>=1;i--) if(last[lines[i]]==i) print lines[i] }' \
+    | fzf --multi \
+          --layout=reverse \
+          --header='TAB to select, ENTER to confirm, ESC to cancel' \
+          --prompt='hist-clean> ')
+
+  if [[ -z "$selected" ]]; then
+    echo "hist-clean: nothing selected."
+    return 0
+  fi
+
+  # Build a set of commands to remove.
+  local count=0
+  local occurrences=0
+  local tmpfile="${histfile}.tmp"
+
+  # Write selected commands to a temp file for matching.
+  local patternfile
+  patternfile=$(mktemp)
+  echo "$selected" > "$patternfile"
+
+  local countfile
+  countfile=$(mktemp)
+
+  if [[ -n "$ZSH_VERSION" ]]; then
+    # Process zsh extended_history: remove entries whose command matches.
+    awk -v patternfile="$patternfile" -v countfile="$countfile" '
+      BEGIN {
+        while ((getline line < patternfile) > 0) {
+          remove[line] = 1
+        }
+        close(patternfile)
+        skip = 0
+        removed = 0
+      }
+      /^: [0-9]+:[0-9]+;/ {
+        cmd = $0
+        sub(/^: [0-9]+:[0-9]+;/, "", cmd)
+        if (cmd in remove) {
+          skip = 1
+          removed++
+          next
+        }
+        skip = 0
+        print
+        next
+      }
+      {
+        # Continuation line of a multi-line command.
+        if (skip) next
+        print
+      }
+      END {
+        print removed > countfile
+      }
+    ' "$histfile" > "$tmpfile"
+  else
+    # Bash: one command per line.
+    awk -v patternfile="$patternfile" -v countfile="$countfile" '
+      BEGIN {
+        while ((getline line < patternfile) > 0) {
+          remove[line] = 1
+        }
+        close(patternfile)
+        removed = 0
+      }
+      {
+        if ($0 in remove) { removed++; next }
+        print
+      }
+      END {
+        print removed > countfile
+      }
+    ' "$histfile" > "$tmpfile"
+  fi
+
+  occurrences=$(cat "$countfile")
+  rm -f "$patternfile" "$countfile"
+
+  # Count unique entries selected.
+  count=$(echo "$selected" | wc -l)
+
+  mv "$tmpfile" "$histfile"
+  fc -R
+
+  echo "Removed $count $(if [[ $count -eq 1 ]]; then echo entry; else echo entries; fi) ($occurrences occurrences) from history:"
+  echo "$selected" | while IFS= read -r cmd; do
+    echo "  $cmd"
+  done
+}

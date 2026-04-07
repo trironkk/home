@@ -11,15 +11,14 @@ export PATH="$PATH:$HOME/.tools"
 export PATH="$PATH:/usr/local/bin"
 export PATH="$PATH:$HOME/.local/share/sf/bin"
 export PATH="$PATH:$HOME/.npm-global/bin"
+export PATH="$PATH:$HOME/.local/bin"
 
 autoload -Uz add-zsh-hook
 
 # Prompt.
 autoload -U colors && colors
-FG_COLOR=black
-BG_COLOR=green
 PROMPT_COMMAND="set_tmux_ps1_bg;$PROMPT_COMMAND"
-PROMPT="%{$fg[$FG_COLOR]%}%{$bg[$BG_COLOR]%}%n%{$reset_color%}@%{$fg[$FG_COLOR]%}%{$bg[$BG_COLOR]%}%m%{$reset_color%}:%{$fg[$FG_COLOR]%}%{$bg[$BG_COLOR]%}%~%{$reset_color%}
+PROMPT="%{$fg[${fg_color:-black}]%}%{$bg[${bg_color:-green}]%}%n%{$reset_color%}@%{$fg[${fg_color:-black}]%}%{$bg[${bg_color:-green}]%}%m%{$reset_color%}:%{$fg[${fg_color:-black}]%}%{$bg[${bg_color:-green}]%}%~%{$reset_color%}
 $ "
 
 # History configuration.
@@ -90,6 +89,10 @@ function OpenVim {
 }
 zle -N OpenVim
 bindkey "^\`" OpenVim
+
+# History cleanup utilities (hd, hist-clean).
+source "${HOME}/.scripts/functions/hd"
+source "${HOME}/.scripts/functions/hist-clean"
 
 # Google-specific configuration.
 [[ -f "$HOME/.google.zsh" ]] && source "$HOME/.google.zsh"

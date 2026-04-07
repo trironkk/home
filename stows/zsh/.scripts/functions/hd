@@ -1,0 +1,76 @@
+# hd [N] — delete the last N commands from history (default 1).
+# Also removes the hd invocation itself. Requires zsh or bash.
+
+hd() {
+  local n=${1:-1}
+
+  # Save current session history to HISTFILE.
+  fc -W
+
+  local histfile="${HISTFILE:-$HOME/.history}"
+  if [[ ! -f "$histfile" ]]; then
+    echo "hd: HISTFILE not found: $histfile" >&2
+    return 1
+  fi
+
+  # +1 to also remove the hd call itself.
+  local total=$((n + 1))
+
+  if [[ -n "$ZSH_VERSION" ]]; then
+    # Extended history format: ": epoch:elapsed;command"
+    # Multi-line commands have continuation lines without the ": " prefix.
+    # Count entries (lines starting with ": ") from the bottom.
+    local entries_found=0
+    local lines_to_remove=0
+    local -a removed_cmds=()
+    while IFS= read -r line; do
+      lines_to_remove=$((lines_to_remove + 1))
+      if [[ "$line" == ": "* ]]; then
+        entries_found=$((entries_found + 1))
+        # Skip the hd call itself (last entry), collect the rest.
+        if [[ $entries_found -gt 1 ]]; then
+          local cmd="${line#: [0-9]##:[0-9]##;}"
+          removed_cmds+=("$cmd")
+        fi
+        [[ $entries_found -ge $total ]] && break
+      fi
+    done < <(tail -r "$histfile" 2>/dev/null || tac "$histfile")
+
+    if [[ $entries_found -eq 0 ]]; then
+      echo "hd: history is empty" >&2
+      return 1
+    fi
+
+    # Remove the last lines_to_remove lines.
+    local total_lines
+    total_lines=$(wc -l < "$histfile")
+    local keep=$((total_lines - lines_to_remove))
+    [[ $keep -lt 0 ]] && keep=0
+    head -n "$keep" "$histfile" > "${histfile}.tmp" && mv "${histfile}.tmp" "$histfile"
+  else
+    # Bash: one command per line.
+    local -a removed_cmds=()
+    local total_lines
+    total_lines=$(wc -l < "$histfile")
+    # Collect the commands being removed (skip last line which is the hd call).
+    local start=$((total_lines - total + 1))
+    [[ $start -lt 1 ]] && start=1
+    local end=$((total_lines - 1))
+    local i=0
+    while IFS= read -r line; do
+      i=$((i + 1))
+      [[ $i -ge $start && $i -le $end ]] && removed_cmds+=("$line")
+    done < "$histfile"
+
+    local keep=$((total_lines - total))
+    [[ $keep -lt 0 ]] && keep=0
+    head -n "$keep" "$histfile" > "${histfile}.tmp" && mv "${histfile}.tmp" "$histfile"
+  fi
+
+  # Reload history from the updated file.
+  fc -R
+  echo "Removed $n $(if [[ $n -eq 1 ]]; then echo entry; else echo entries; fi) from history:"
+  for cmd in "${removed_cmds[@]}"; do
+    echo "  $cmd"
+  done
+}
