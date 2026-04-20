@@ -1,66 +1,30 @@
-vim.pack.add({
-	{ src="https://github.com/nvim-mini/mini.clue" },
-})
-local miniclue = require('mini.clue')
-miniclue.setup({
-  window = {
-    -- Floating window config
-    config = {
-	    border = 'double',
-	    width = 100,
-    },
+vim.pack.add({ { src = "https://github.com/nvim-mini/mini.clue" } })
 
-    -- Delay before showing clue window
-    delay = 200,
-
-    -- Keys to scroll inside the clue window
-    scroll_down = '<C-n>',
-    scroll_up = '<C-p>',
-  },
-
-  triggers = {
-    -- Leader triggers
-    { mode = 'n', keys = '<Leader>' },
-    { mode = 'x', keys = '<Leader>' },
-
-    -- Built-in completion
-    { mode = 'i', keys = '<C-x>' },
-
-    -- `g` key
-    { mode = 'n', keys = 'g' },
-    { mode = 'x', keys = 'g' },
-
-    -- Marks
-    { mode = 'n', keys = "'" },
-    { mode = 'n', keys = '`' },
-    { mode = 'x', keys = "'" },
-    { mode = 'x', keys = '`' },
-
-    -- Registers
-    { mode = 'n', keys = '"' },
-    { mode = 'x', keys = '"' },
-    { mode = 'i', keys = '<C-r>' },
-    { mode = 'c', keys = '<C-r>' },
-
-    -- Window commands
-    { mode = 'n', keys = '<C-w>' },
-
-    -- `z` key
-    { mode = 'n', keys = 'z' },
-    { mode = 'x', keys = 'z' },
-  },
-
-  clues = {
-    -- Enhance this by adding descriptions for <Leader> mapping groups
-    miniclue.gen_clues.builtin_completion(),
-    miniclue.gen_clues.g(),
-    miniclue.gen_clues.marks(),
-    miniclue.gen_clues.registers(),
-    miniclue.gen_clues.windows(),
-    miniclue.gen_clues.z(),
-    { mode = 'n', keys = '<Leader>f', desc = '[F]ind...' },
-    { mode = 'n', keys = '<Leader>s', desc = '[S]ource...' },
-    { mode = 'n', keys = '<Leader>l', desc = '[L]sp...' },
-    { mode = 'n', keys = '<Leader>?', desc = '[?] Explore keymaps' },
-  },
+local clue = require("mini.clue")
+clue.setup({
+	window = { config = { border = "double", width = 100 }, delay = 200 },
+	triggers = {
+		{ mode = "n", keys = "<Leader>" },
+		{ mode = "x", keys = "<Leader>" },
+		{ mode = "i", keys = "<C-x>" },
+		{ mode = "n", keys = "g" }, { mode = "x", keys = "g" },
+		{ mode = "n", keys = "'" }, { mode = "n", keys = "`" },
+		{ mode = "x", keys = "'" }, { mode = "x", keys = "`" },
+		{ mode = "n", keys = '"' }, { mode = "x", keys = '"' },
+		{ mode = "i", keys = "<C-r>" }, { mode = "c", keys = "<C-r>" },
+		{ mode = "n", keys = "<C-w>" },
+		{ mode = "n", keys = "z" }, { mode = "x", keys = "z" },
+	},
+	clues = {
+		clue.gen_clues.builtin_completion(),
+		clue.gen_clues.g(),
+		clue.gen_clues.marks(),
+		clue.gen_clues.registers(),
+		clue.gen_clues.windows(),
+		clue.gen_clues.z(),
+		{ mode = "n", keys = "<Leader>f", desc = "[F]ind..." },
+		{ mode = "n", keys = "<Leader>s", desc = "[S]ource..." },
+		{ mode = "n", keys = "<Leader>l", desc = "[L]sp..." },
+		{ mode = "n", keys = "<Leader>?", desc = "[?] Explore keymaps" },
+	},
 })

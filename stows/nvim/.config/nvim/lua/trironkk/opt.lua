@@ -1,20 +1,24 @@
-vim.opt.relativenumber = true
-vim.opt.number = true
-vim.opt.mouse = ""
-vim.opt.showmode = false
-vim.opt.breakindent = true
-vim.opt.undofile = true
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-vim.opt.signcolumn = "yes"
-vim.opt.updatetime = 250
-vim.opt.timeoutlen = 300
-vim.opt.splitbelow = true
-vim.opt.inccommand = "split"
-vim.opt.cursorline = true
-vim.opt.scrolloff = 10
-vim.opt.wrap = false
-vim.opt.hlsearch = true
-vim.opt.winborder = 'rounded'
+local o = vim.opt
+
+o.number = true
+o.relativenumber = true
+o.mouse = ""
+o.showmode = false
+o.breakindent = true
+o.undofile = true
+o.ignorecase = true
+o.smartcase = true
+o.signcolumn = "yes"
+o.updatetime = 250
+o.timeoutlen = 300
+o.splitbelow = true
+o.inccommand = "split"
+o.cursorline = true
+o.scrolloff = 10
+o.wrap = false
+o.hlsearch = true
+o.winborder = "rounded"
+o.list = true
+o.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 
 vim.g.minianimate_disable = true
