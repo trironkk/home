@@ -1,63 +1,33 @@
+PACKAGES := \
+	autoconf automake autorandr bat cmake curl fd-find g++ gcc gettext git \
+	htop fzf jq libevent-dev libltdl7 liblzma-dev libncurses-dev libpcre3-dev \
+	libtool libtool-bin make ninja-build nodejs pkg-config ripgrep stow tar \
+	tmux unzip wget zsh
+
+.PHONY: all init stow unstow install-neovim default-shell generate-ssh-key
+
 all: init stow install-neovim
 
 init:
-	sudo apt update \
-	&& sudo apt install -y \
-	        autoconf \
-	        automake \
-	        autorandr \
-	        bat \
-	        cmake \
-	        curl \
-	        doxygen \
-	        fd-find \
-	        g++ \
-	        gcc \
-	        gettext \
-	        git \
-	        htop \
-	        fzf \
-	        jq \
-	        libevent-dev \
-	        libltdl7 \
-	        liblzma-dev \
-	        libncurses-dev \
-	        libpcre3-dev \
-	        libtool \
-	        libtool-bin \
-	        make \
-	        ninja-build \
-	        nodejs \
-	        pkg-config \
-	        silversearcher-ag \
-	        stow \
-	        tar \
-	        tmux \
-	        unzip \
-	        vim \
-	        wget \
-	        zlib1g-dev \
-	        zsh \
-	        ripgrep
+	sudo apt update && sudo apt install -y $(PACKAGES)
 
 stow:
-	mkdir -p "${HOME}/.tmux/plugins"
-	mkdir -p "${HOME}/.config/nvim/lua/trironkk/plugins"
-	cd stows/ && stow --target "${HOME}" *
-
-install-neovim:
-	# v0.12.0-dev-1467+g671841673e
-	git clone --depth 1 --branch "nightly" "https://github.com/neovim/neovim" "${HOME}/local/github.com/neovim/neovim"
-	cd "${HOME}/local/github.com/neovim/neovim" && make CMAKE_BUILD_TYPE=RelWithDebInfo && sudo make install
-
-generate-ssh-key:
-	ssh-keygen -t rsa -b 4096 -C "trironk@gmail.com"
-
-default-shell:
-	sudo chsh -s "$(shell which zsh)" "${USER}"
+	mkdir -p "$(HOME)/.tmux/plugins"
+	mkdir -p "$(HOME)/.config/nvim/lua/trironkk/plugins"
+	cd stows && stow --target "$(HOME)" *
 
 unstow:
-	cd stows/ && stow --delete --target "${HOME}" *
+	cd stows && stow --delete --target "$(HOME)" *
 
-clean:
-	rm -rf vim/.vim
+install-neovim:
+	git clone --depth 1 --branch nightly \
+		https://github.com/neovim/neovim \
+		"$(HOME)/local/github.com/neovim/neovim"
+	$(MAKE) -C "$(HOME)/local/github.com/neovim/neovim" CMAKE_BUILD_TYPE=RelWithDebInfo
+	sudo $(MAKE) -C "$(HOME)/local/github.com/neovim/neovim" install
+
+default-shell:
+	sudo chsh -s "$$(which zsh)" "$(USER)"
+
+generate-ssh-key:
+	ssh-keygen -t ed25519 -C "trironk@gmail.com"

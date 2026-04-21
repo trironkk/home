@@ -1,15 +1,14 @@
-alias vim=nvim
-alias vimdiff='nvim -d'
+# Secrets (not source-controlled).
+# OPENAI_API_KEY    https://platform.openai.com/account/api-keys
+# GEMINI_API_KEY    https://aistudio.google.com/api-keys
+# ANTHROPIC_API_KEY https://platform.claude.com/settings/keys
+[[ -f "$HOME/.secrets" ]] && source "$HOME/.secrets"
 
 [[ -f "$HOME/.google.bash_profile" ]] && source "$HOME/.google.bash_profile"
 
-export GOPATH=$HOME/go 
-export GOBIN=$GOPATH/bin 
-export PATH=$PATH:$GOPATH 
+export EDITOR=nvim
+export GOPATH="$HOME/go"
+export PATH="$PATH:$GOPATH/bin:$HOME/.tools:$HOME/.local/bin:$HOME/.npm-global/bin"
 
-# Secret configurations not to be source controlled.
-# OPENAI_API_KEY: https://platform.openai.com/account/api-keys
-# GOOGLE_API_KEY: https://console.cloud.google.com/apis/credentials/key/01cbe6c1-81f8-446a-bfe7-e112fb77dc18
-# GEMINI_API_KEY: https://aistudio.google.com/api-keys
-# ANTHROPIC_API_KEY: https://platform.claude.com/settings/keys
-[[ -f "$HOME/.secrets" ]] && source "$HOME/.secrets"
+alias vim=nvim
+alias vimdiff='nvim -d'

@@ -1,39 +1,11 @@
-vim.pack.add({
-	{ src = "https://github.com/nvim-mini/mini.diff" },
+vim.pack.add({ { src = "https://github.com/nvim-mini/mini.diff" } })
+
+local diff = require("mini.diff")
+diff.setup({
+	source = { diff.gen_source.git(), diff.gen_source.save() },
+	view = { signs = { add = "▒", change = "▒", delete = "▒" } },
+	options = { algorithm = "histogram", indent_heuristic = true, linematch = 60 },
 })
 
-local minidiff = require("mini.diff")
-minidiff.setup({
-	source = {
-		minidiff.gen_source.git(),
-		minidiff.gen_source.save(),
-	},
-	-- Options for how hunks are visualized
-	view = {
-		-- Visualization style. Possible values are 'sign' and 'number'.
-		-- Default: 'number' if line numbers are enabled, 'sign' otherwise.
-		style = vim.go.number and 'number' or 'sign',
-
-		-- Signs used for hunks with 'sign' view
-		signs = { add = '▒', change = '▒', delete = '▒' },
-
-		-- Priority of used visualization extmarks
-		priority = 199,
-	},
-	-- Various options
-	options = {
-		-- Diff algorithm. See `:h vim.diff()`.
-		algorithm = 'histogram',
-
-		-- Whether to use "indent heuristic". See `:h vim.diff()`.
-		indent_heuristic = true,
-
-		-- The amount of second-stage diff to align lines
-		linematch = 60,
-
-		-- Whether to wrap around edges during hunk navigation
-		wrap_goto = false,
-	},
-})
-
-vim.keymap.set('n', '<leader><F11>', ':lua MiniDiff.toggle_overlay()<CR>', { desc = "Toggle MiniDiff Overlay" })
+vim.keymap.set("n", "<leader><F11>", function() diff.toggle_overlay() end,
+	{ desc = "Toggle MiniDiff overlay" })
